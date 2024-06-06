@@ -14,6 +14,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="{{ asset('assets/axios/dist/axios.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets\alerthub\src\Alerthub.css') }}" />
     <script src="{{ asset('assets\alerthub\src\Alerthub.js') }}"></script>
     <!-- Styles -->
@@ -24,7 +25,7 @@
     <script>
         const alertInstance = new AlertHub()
 
-        function showAlert(message, type, timeout = 7) {
+        function showAlert(message, type, timeout = 5) {
             alertInstance.showAlert({
                 title: "",
                 description: message + "",
@@ -33,6 +34,21 @@
             });
         }
     </script>
+
+    @if (session('success'))
+        <script>
+            showAlert({
+                {
+                    session('success')
+                }
+            }, "success")
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            showAlert("{{ session('error') }}", "danger")
+        </script>
+    @endif
 
 
     <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar"
@@ -163,7 +179,7 @@
                     </li>
                     <p class="uppercase font-bold text-xs ps-1 text-slate-300 pt-4">Investment</p>
                     <li>
-                        <a href="{{route('investment.index')}}"
+                        <a href="{{ route('investment.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -179,7 +195,7 @@
                     <p class="uppercase font-bold text-xs ps-1 text-slate-300 pt-4">Account</p>
 
                     <li>
-                        <a href="{{route('withdraw.index')}}"
+                        <a href="{{ route('withdraw.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -238,8 +254,7 @@
             </ul>
             <div id="dropdown-cta" class="p-4 mt-6 rounded-xl bg-blue-900" role="alert">
                 <div class="flex items-center mb-3">
-                    <span
-                        class=" text-sm font-bold uppercase me-2 px-2.5 py-0.5 text-slate-100">Need
+                    <span class=" text-sm font-bold uppercase me-2 px-2.5 py-0.5 text-slate-100">Need
                         help?</span>
                     <button type="button"
                         class="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
@@ -323,7 +338,7 @@
 
         </div>
     </nav>
-    <div class="p-4 sm:ml-64">
+    <div class="p- sm:ml-64">
         {{ $slot }}
     </div>
     @stack('modals')

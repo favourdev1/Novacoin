@@ -69,7 +69,7 @@
         </div>
     </div>
 </x-sidebar>
-@if (session('success'))
+{{-- @if (session('success'))
 <script>
 showAlert({
     {
@@ -82,4 +82,4 @@ showAlert({
 <script>
 showAlert("{{ session('error') }}", "danger")
 </script>
-@endif
+@endif --}}

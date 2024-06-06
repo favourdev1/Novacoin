@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Mail\AccountFundedEmail;
 use App\Models\Admin;
 use App\Models\FundAccount;
 use App\Models\InvestmentPlans;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -67,7 +70,7 @@ class AdminController extends Controller
             $AllFundings = FundAccount::join('wallets', 'fund_accounts.wallet_id', '=', 'wallets.id')
                 ->join('users', 'fund_accounts.user_id', '=', 'users.id')
                 ->orderByRaw("CASE WHEN fund_accounts.status = 'pending' THEN 1 ELSE 2 END")
-                ->select('fund_accounts.*','users.*','wallets.*','fund_accounts.id as fund_accountId')
+                ->select('fund_accounts.*', 'users.*', 'wallets.*', 'fund_accounts.id as fund_accountId')
                 ->paginate(10);
 
         } else {
@@ -92,7 +95,7 @@ class AdminController extends Controller
         ]);
 
         $fundAccount = FundAccount::where('id', $request->id)->first();
-       
+
         $userId = $fundAccount->user_id;
 
         $amount = $fundAccount->amount;
@@ -102,18 +105,23 @@ class AdminController extends Controller
             'approved_by' => Auth::user()->id
         ]);
         $user = User::where('id', $userId)->first();
-        
+
         $newBalance = $user->balance + $amount;
-       
+
         $user->update([
             'balance' => $newBalance
         ]);
         session()->flash('success', 'Account Funded Successfully .');
-//send email
+        //send email
+
+      
+
+        Mail::to($user->email)->send(new AccountFundedEmail($user, $amount));
+
         return redirect()->back();
     }
 
-    
+
     public function disapprovePayment(Request $request)
     {
         // validate request
@@ -123,7 +131,7 @@ class AdminController extends Controller
         ]);
 
         $fundAccount = FundAccount::where('id', $request->id)->first();
-       
+
         $userId = $fundAccount->user_id;
 
         $amount = $fundAccount->amount;
@@ -132,7 +140,7 @@ class AdminController extends Controller
             'status' => 'disapproved',
             'approved_by' => Auth::user()->id
         ]);
-    //    send email
+        //    send email
         session()->flash('success', 'Payment disapproved successfully.');
 
         return redirect()->back();

@@ -1,16 +1,16 @@
 <x-sidebar>
 
-    <div class="flex items-center justify-center pt-20">
+    <div class="flex items-center justify-center pt-10">
         @php
-          
-            $formAction = route('investmentPlan.store');
-            $formMethod =  'POST';
+
+            $formAction = route('investment.in.plan');
+            $formMethod = 'POST';
             $buttonText = 'Create Investment Plan';
             $headerText = 'Confirm and Invest';
         @endphp
 
 
-        <div class="rounded-lg border border-[#eoeoeo] w-full md:w-2/4 xl:w-1/3  text-gray-600">
+        <div class="rounded-lg border border-[#eoeoeo] w-full md:w-3/5 xl:w-2/4  2xl:w-1/3 text-gray-600">
             <div class="py-4 border-b flex items-center">
                 <a href="{{ url()->previous() }}"
                     class=" text-white font-bold py-2 pl-4 cursor-pointer rounded-full focus:outline-none focus:ring-0 mr-2">
@@ -30,50 +30,53 @@
             </div>
 
             <x-validation-errors class="mb-4 px-10" />
-
-            <div class="p-4">
-                <div class="mb-4 flex items-center justify-between w-full">
-                    <label for="name" class="block text-sm text-gray-700  font-bold mb-2">Investment Name</label>
-                    <input disabled type="text" name="name" id="name"
-                        class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
-                        value="{{ $investmentPlan->name  }}" required>
-                </div>
-
-                <div class="mb-4 flex items-center justify-between w-full">
-                    <label for="min_amount" class="block text-sm text-gray-700  font-bold mb-2">Min Investment
-                        Amount</label>
-                    <input disabled type="number" name="min_amount" id="min_amount"
-                        class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
-                        value="{{ $investmentPlan->min_amount  }}" required>
-                </div>
-
-                <div class="mb-4 flex items-center justify-between w-full">
-                    <label for="max_amount" class="block text-sm text-gray-700  font-bold mb-2">Max Investment
-                        Amount</label>
-                    <input disabled type="number" name="max_amount" id="max_amount"
-                        class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
-                        value="{{ $investmentPlan->max_amount}}" required>
-                </div>
-
-                <div class="mb-4 flex items-center justify-between w-full">
-                    <label for="duration" class="block text-sm text-gray-700  font-bold mb-2">Duration (days)</label>
-                    <input disabled type="number" name="duration" id="duration"
-                        class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
-                        value="{{ $investmentPlan->duration  }}" required>
-                </div>
-
-                <div class="mb-4 flex items-center justify-between w-full">
-                    <label for="daily_interest" class="block text-sm text-gray-700  font-bold mb-2">Daily Interest
-                    </label>
-                    <input disabled type="" name="daily_interest" id="daily_interest"
-                        class="appearance-none text-sm border-none rounded w-max py-1.5 bg-transparent  px-3 text-gray-700 focus:outline-none focus:ring"
-                        value="{{ $investmentPlan->daily_interest . '% Every day' }}" required>
-                </div>
-
-            </div>
-            <form class="" action="{{ $formAction }}" method="POST">
+            <form class="" action="{{ $formAction }}" method="POST" id="investForm">
                 @csrf
-<input type="hidden" name ="investment_plan_id" value="{{ $investmentPlan->id }}">
+                <div class="p-4">
+                    <div class="mb-4 flex items-center justify-between w-full">
+                        <label for="name" class="block text-sm text-gray-700  font-bold mb-2">Investment
+                            Name</label>
+                        <input disabled type="text" name="name" id="name"
+                            class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
+                            value="{{ $investmentPlan->name }}" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center justify-between w-full">
+                        <label for="min_amount" class="block text-sm text-gray-700  font-bold mb-2">Min Investment
+                            Amount</label>
+                        <input disabled type="number" name="min_amount" id="min_amount"
+                            class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
+                            value="{{ $investmentPlan->min_amount }}" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center justify-between w-full">
+                        <label for="max_amount" class="block text-sm text-gray-700  font-bold mb-2">Max Investment
+                            Amount</label>
+                        <input disabled type="number" name="max_amount" id="max_amount"
+                            class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
+                            value="{{ $investmentPlan->max_amount }}" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center justify-between w-full">
+                        <label for="duration" class="block text-sm text-gray-700  font-bold mb-2">Duration
+                            (days)</label>
+                        <input disabled type="number" name="duration" id="duration"
+                            class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
+                            value="{{ $investmentPlan->duration }}" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center justify-between w-full">
+                        <label for="daily_interest" class="block text-sm text-gray-700  font-bold mb-2">Daily Interest
+                        </label>
+                        <input disabled type="" name="daily_interest" id="daily_interest"
+                            class="appearance-none text-sm border-none rounded w-max py-1.5 bg-transparent  px-3 text-gray-700 focus:outline-none focus:ring"
+                            value="{{ $investmentPlan->daily_interest . '% Every day' }}" required>
+                    </div>
+
+                </div>
+                {{-- <form class="" action="{{ $formAction }}" method="POST"> --}}
+                {{-- @csrf --}}
+                <input type="hidden" name ="investment_plan_id" value="{{ $investmentPlan->id }}">
                 <div class="p-4">
                     <p class="font-extrabold  uppercase text-blue-700 text-sm">Amount to Invest </p>
                     <input type="number" name="investment_amount" id="investment_amount"
@@ -82,25 +85,38 @@
                         required>
 
                     <div class="border text-xs bg-gray-100 rounded-xl mt-5 py-3 px-2">
-                        <p>You would earn <span id="calcEarnings" class="font-bold text-base"> $0.00 </span> every day</p>
+                        <p>You would earn <span id="calcEarnings" class="font-bold text-base"> $0.00 </span> every day
+                        </p>
                     </div>
                 </div>
 
-                <div class="p-4 border-t flex items-center">
-                    <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2  px-4 rounded-full focus:outline-none focus:ring w-full text-sm">
-                        {{ $buttonText }}
-                    </button>
-                </div>
             </form>
+
+            <div x-data="{ showModal: false }" @confirm-investment.window="invest" class="p-4 border-t flex items-center">
+
+                <button type="submit" id="submitButton" @click="showModal = true"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3  px-4 rounded-full focus:outline-none focus:ring w-full text-sm">
+                    {{ $buttonText }}
+                </button>
+
+
+
+                <!-- Modal Component -->
+                <x-investdialog id="investDialog" title="Confirm Investment" description="You are about to invest"
+                    image="{{ asset('assets/images/investImage.png') }}" buttonText="Confirm" />
+            </div>
+            {{-- </form> --}}
         </div>
     </div>
+
+    </div>
 </x-sidebar>
+
 <script>
     let intervalId = null;
     let counterIntervalId = null;
     const updateInterval = 20; // Adjust this value to change the update frequency
-
+    var investDialog = document.getElementById('descriptionModal');
     // call the calculate first so the animation can play 
     calcEarnings();
 
@@ -110,6 +126,8 @@
     function calcEarnings() {
         const investmentAmount = document.getElementById('investment_amount').value;
 
+        investDialog.innerText = 'You are about to invest ' + investmentAmount +
+            ' in this plan. \n By Clicking Continue, you agree with our terms and conditions of operation including that of this investment';
         if (investmentAmount == '' || investmentAmount == 0) {
             document.getElementById('calcEarnings').innerText = `$0.00`;
             clearInterval(intervalId);
@@ -140,5 +158,42 @@
                 updateInterval -= 20;
             }
         }, 50);
+    }
+
+
+
+
+
+
+
+
+
+
+    // ===============================================================================================
+    // function to use axios to send data to the bckend 
+    // ===============================================================================================
+
+
+    function invest() {
+
+        const investform = document.getElementById('investForm');
+        investform.submit();
+        // const investmentAmount = document.getElementById('investment_amount').value;
+        // const investmentPlanId = document.querySelector('input[name="investment_plan_id"]').value;
+        // const url = "{{ route('invest.now') }}";
+        // const data = {
+        //     investment_amount: investmentAmount,
+        //     investment_plan_id: investmentPlanId
+        // };
+
+        // axios.post(url, data)
+        //     .then(response => {
+        //         console.log(response.data);
+        //         // show the dialog
+        //         document.getElementById('investDialog').style.display = 'block';
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
     }
 </script>

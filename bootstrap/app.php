@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'isAdmin' => App\Http\Middleware\CheckAdmin::class,
             'isUser' => App\Http\Middleware\UsersMiddleware::class,
+            'RunEveryTime'=>App\Http\Middleware\RunEveryTime::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
