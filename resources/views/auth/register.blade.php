@@ -50,6 +50,16 @@
                     name="password_confirmation" required autocomplete="new-password" />
             </div>
 
+
+            <div class="mt-4">
+
+                @php
+    $referralId = request('ref');
+@endphp
+                <x-label for="referral_id" value="{{ __('Referral Id') }}" />
+                <x-input id="referral_id" class="block mt-1 w-full" type="text" value="{{ $referralId }}"
+                    name="referral_id"  />
+            </div>
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-label for="terms">

@@ -156,7 +156,8 @@ class InvestmentController extends Controller
             ->where('user_id', $userId)
             ->orderBy('users_investments.created_at', 'desc')->count();
 
-
+// all ended investment
+        $allEndedInvestment = InvestmentPlans::where('status', 'inactive')->get();
         // All investment queries
         $query = strtolower($request->query('filter'));
         if ($query == null) {
@@ -188,7 +189,8 @@ class InvestmentController extends Controller
                 'allMyActiveInvestment',
                 'allMyEndedInvestments',
                 'earnings',
-                'calcInvestmentEarningsToday'
+                'calcInvestmentEarningsToday',
+                'allEndedInvestment'
             )
         );
     }
@@ -272,24 +274,25 @@ class InvestmentController extends Controller
     }
 
 
-    public function calcInvestmentEarningsHourly()
-    {
-        $investmentPlans = InvestmentPlans::where('status', 'active')->get();
+    // public function calcInvestmentEarningsHourly()
+    // {
+    //     $investmentPlans = InvestmentPlans::where('status', 'active')->get();
 
-        foreach ($investmentPlans as $plan) {
-            $hoursPassed = Carbon::now()->diffInHours($plan->created_at);
-            $hourlyInterest = $plan->daily_interest / 24;
-            $earnings = $hoursPassed * $hourlyInterest;
+    //     foreach ($investmentPlans as $plan) {
+    //         $hoursPassed = Carbon::now()->diffInHours($plan->created_at);
+    //         $hourlyInterest = $plan->daily_interest / 24;
+    //         $earnings = $hoursPassed * $hourlyInterest;
 
-            // Do something with the earnings...
-        }
-    }
+    //         // Do something with the earnings...
+    //     }
+    // }
 
 
     public function calcInvestmentEarningsMinute($userId)
     {
         $earnings = 0;
         $investmentPlans = UsersInvestment::join('investment_plans', 'investment_plans.id', '=', 'users_investments.investment_plan_id')
+            ->where('user_id', $userId)
             ->where('status', 'active')->get();
 
         foreach ($investmentPlans as $plan) {
@@ -307,6 +310,7 @@ class InvestmentController extends Controller
     {
         $earnings = 0;
         $investmentPlans = UsersInvestment::join('investment_plans', 'investment_plans.id', '=', 'users_investments.investment_plan_id')
+            ->where('user_id', $userId)
             ->where('status', 'active')->get();
         foreach ($investmentPlans as $plan) {
             $now = Carbon::now();
@@ -334,21 +338,22 @@ class InvestmentController extends Controller
     {
         // validate $user id that is passed
         // validate $userId that is passed
-    if (!is_numeric($userId)) {
-        return response()->json(['error' => 'Invalid user ID.'], 400);
-    }
+        if (!is_numeric($userId)) {
+            return response()->json(['error' => 'Invalid user ID.'], 400);
+        }
 
-    // Check if the user exists
-    $user = User::find($userId);
-    if (!$user) {
-        return response()->json(['error' => 'User not found.'], 404);
-    }
+        // Check if the user exists
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['error' => 'User not found.'], 404);
+        }
 
 
 
         $earnings = 0;
         $investmentPlans = UsersInvestment::join('investment_plans', 'investment_plans.id', '=', 'users_investments.investment_plan_id')
-            ->where('status', 'active')->get();
+            ->where('user_id', $userId)
+            ->where('investment_plans.status', 'active')->get();
         foreach ($investmentPlans as $plan) {
             $now = Carbon::now();
             $startOfDay = clone $now;
@@ -366,9 +371,27 @@ class InvestmentController extends Controller
         }
 
         return response()->json([
-            'earnings' => $earnings
+            'earnings' => $investmentPlans
 
         ]);
+    }
+
+
+    public function showMyInvesment($id)
+    {
+
+
+
+        // fix from here why its redirecting to the dashboard page 
+        
+  
+        // Validator::make(['id' => $id], [
+        //     'id' => 'required|exists:investment_plans,id',
+        // ])->validate();
+        // $userInvesment = UsersInvestment::join('invesment', 'investment.id', '=', 'users_investment.investment_id')->where('users_investment.user_id', Auth::id())
+        //     ->where('user_investment.id', $id)->get();
+
+        return view('users.investment.show');
     }
 
 }

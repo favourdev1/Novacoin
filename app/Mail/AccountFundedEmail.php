@@ -46,7 +46,7 @@ class AccountFundedEmail extends Mailable
     //         markdown: 'emails.account_fundedEmail',
     //     );
 
-        return $this->markdown('emails.account_funded')
+        return $this->markdown('emails.account_fundedEmail')
         ->with([
             'name' => $this->user->name,
             'amount' => $this->amount,

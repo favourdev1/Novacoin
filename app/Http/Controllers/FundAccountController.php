@@ -57,6 +57,7 @@ class FundAccountController extends Controller
             $fundAccount->wallet_id = $request->wallet_id;
             $fundAccount->amount = $request->amount;
             $fundAccount->payment_proof = $filename;
+            $fundAccount->user_id = Auth::user()->id;
             $fundAccount->save();
 
             return redirect()->back()->with('success', 'Fund account created successfully.');

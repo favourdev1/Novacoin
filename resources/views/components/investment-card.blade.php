@@ -1,4 +1,4 @@
-<div class="rounded-3xl hover:ring-blue-600 duration-300 hover:ring-2 border shadow-sm py-5 px-3 prose card-hover">
+<div x-data="{ isActive: {{ $isActive ? 'true' : 'false' }} }" :class="{'hover:ring-blue-600': isActive, 'hover:ring-gray-500': !isActive}" class="rounded-3xl duration-300 hover:ring-2 border shadow-sm py-5 px-3 prose card-hover">
 
 
 
@@ -56,16 +56,20 @@
 
             </ul>
         </div>
+        @if($isActive)
             <button onclick="window.location.href='{{ route('investment.show', $investmentId) }}'"
                 class="w-full text-center rounded-full py-3 font-bold bg-blue-100 hover:bg-blue-600 duration-500 text-blue-600 hover:text-blue-100 cursor-pointer">
                 Choose Plan
             </button>
+            @else
+            <button class="px-4 py-2 bg-gray-500 text-white w-full text-center rounded-full py-3 font-bold cursor-not-allowed" disabled>Ended</button>
+            @endif 
         </div>
 
     </div>
 
 
-
+@if($isActive)
     <style>
         .card-hover:hover button {
             transition: all 0.5s;
@@ -74,5 +78,14 @@
 
         }
     </style>
+@else
+    <style>
+        .card-hover:hover button {
+            transition: all 0.5s;
+            background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+            color: rgb(219 234 254 / var(--tw-text-opacity));
+        }
+    </style>
 
+    @endif
 </div>

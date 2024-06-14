@@ -116,7 +116,7 @@ class AdminController extends Controller
 
       
 
-        Mail::to($user->email)->send(new AccountFundedEmail($user, $amount));
+        // Mail::to($user->email)->send(new AccountFundedEmail($user, $amount));
 
         return redirect()->back();
     }

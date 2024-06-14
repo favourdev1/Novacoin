@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Str;
 return new class extends Migration {
     /**
      * Run the migrations.
@@ -19,11 +19,13 @@ return new class extends Migration {
             $table->string('account_number')->unique();
             $table->decimal('balance', 10, 2)->default(0);
             $table->string('role')->default('user');
+            $table->string('referral_code');
+            $table->string('referrer_id')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
 

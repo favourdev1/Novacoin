@@ -26,7 +26,7 @@ class CreateNewUser implements CreatesNewUsers
             'lastname' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            
+            'referral_id'=>['sometimes','nullable'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
@@ -39,7 +39,19 @@ class CreateNewUser implements CreatesNewUsers
             'firstname' => $input['firstname'],
             'lastname' => $input['lastname'],
             'email' => $input['email'],
+            'referrer_id'=>$input['referral_id'],
             'password' => Hash::make($input['password']),
+            'referral_code' => $this->generateReferralCode()
         ]);
+    }
+
+    public function generateReferralCode()
+    {
+        $referralCode = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 6);
+        $users  = User::where('referral_code', $referralCode)->get();
+        if ($users->count() > 0) {
+            $this->generateReferralCode();
+        }
+        return $referralCode;
     }
 }

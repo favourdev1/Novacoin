@@ -19,8 +19,9 @@ class InvestmentCard extends Component
     public $investmentDuration;
     public $dailyInterest;
     public $investmentId;
+    public $isActive;
 
-    public function __construct($investmentId,$investmentName, $investmentAmount, $investmentStatus, $minInvestment, $maxInvestment, $investmentDuration, $dailyInterest)
+    public function __construct($investmentId,$investmentName, $investmentAmount, $investmentStatus, $minInvestment, $maxInvestment, $investmentDuration, $dailyInterest,$isActive=true)
     {
         $this->investmentId = $investmentId;
         $this->investmentName = $investmentName;
@@ -30,6 +31,7 @@ class InvestmentCard extends Component
         $this->maxInvestment = $maxInvestment;
         $this->investmentDuration = $investmentDuration;
         $this->dailyInterest = $dailyInterest;
+        $this->isActive = $isActive;
     }
   
 

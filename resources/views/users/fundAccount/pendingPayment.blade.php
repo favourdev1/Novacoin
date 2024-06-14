@@ -94,13 +94,27 @@
                     <p class="text-sm mt-4">ADDRESS</p>
                     <p
                         class="font-semibold  py-4 rounded-lg px-4  bg-gradient-to-b mt-5 from-gray-200 flex items-center gap-4 to-white shadow-sm  border ">
-                        {{ $cryptoWallet->wallet_address }} <span class="" tooltip="Copy to clipboard"><svg
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-4 h-4">
+                        {{ $cryptoWallet->wallet_address }} <span
+                            class="col hover:bg-gray-300 group-hover:bg-gray-800 duration-400 p-2 rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer "
+                                data-tippy-content="Copy referral link" id="copyIcon">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
                             </svg>
+
+
                         </span></p>
+                        <script>
+                            document.getElementById('copyIcon').addEventListener('click', function() {
+                                var copyText = " {{ $cryptoWallet->wallet_address }} ";
+                                navigator.clipboard.writeText(copyText).then(function() {
+                                    alert('Copied to clipboard');
+                                }).catch(function() {
+                                    alert('Failed to copy text');
+                                });
+                            });
+                        </script>
                 </div>
                 <p
                     class="text-sm text-red-500 pb-2 pt-5 w-full text-center font-bold flex items-center justify-center gap-4">
@@ -120,22 +134,24 @@
             {{-- payment proof form --}}
             <div class="flex items-center justify-content-center py-5 w-full">
 
-                <form id="hiddenImageUploadForm" action="{{route('fundAccount.store')}}"
-                      class="mx-auto w-full flex-col flex justify-center" method="post" enctype="multipart/form-data">
+                <form id="hiddenImageUploadForm" action="{{ route('fundAccount.store') }}"
+                    class="mx-auto w-full flex-col flex justify-center" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="amount" value="{{ $amount }}">
                     <input type="hidden" name="wallet_id" value="{{ $cryptoWallet->id }}">
-                    <input type="file" id="hiddenImageUploadInput" class="hidden" name="payment_proof" accept="image/jpeg,image/png,image/jpg">
+                    <input type="file" id="hiddenImageUploadInput" class="hidden" name="payment_proof"
+                        accept="image/jpeg,image/png,image/jpg">
 
                     <div id="paymentProofButton"
-                         class=" flex items-center justify-center min-h-48  hover:bg-gray-100 w-full border-dashed border-gray-300 border-2 py-4 px-5  rounded-xl bg-gray-50 flex-col text-gray-600 text-sm">
+                        class=" flex items-center justify-center cursor-pointer min-h-48  hover:bg-gray-100 w-full border-dashed border-gray-300 border-2 py-4 px-5  rounded-xl bg-gray-50 flex-col text-gray-600 text-sm">
                         <!-- SVG and text here -->
                         Click here to add payment proof
                     </div>
 
                     <div class="mt-4">
                         <button type="submit"
-                                class="bg-blue-500 text-white rounded-lg px-4 py-2 text-sm w-full md:w-max ml-auto">Submit Payment
+                            class="bg-blue-500 text-white rounded-lg px-4 py-2 text-sm w-full md:w-max ml-auto">Submit
+                            Payment
                             Proof
                         </button>
                     </div>

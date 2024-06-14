@@ -17,6 +17,8 @@
     <script src="{{ asset('assets/axios/dist/axios.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets\alerthub\src\Alerthub.css') }}" />
     <script src="{{ asset('assets\alerthub\src\Alerthub.js') }}"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <!-- Styles -->
     @livewireStyles
 </head>
@@ -51,25 +53,27 @@
     @endif
 
 
-    <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar"
-        aria-controls="cta-button-sidebar" type="button"
-        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-        <span class="sr-only">Open sidebar</span>
-        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" fill-rule="evenodd"
-                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-            </path>
-        </svg>
-    </button>
-
     <aside id="cta-button-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-2"
         aria-label="Sidebar">
 
 
         <div class="h-[97%] px-3 py-4 flex flex-col my-4 rounded-3xl  overflow-y-auto bg-gray-50 dark:bg-gray-800">
-            <x-authentication-card-logo />
+            <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar"
+                id="sidebartoggleButtonClose" aria-controls="cta-button-sidebar" type="button"
+                class="inline-flex items-center w-max p-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" fill-rule="evenodd"
+                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                    </path>
+                </svg>
+            </button>
+            <div class="flex items-center gap-4">
+                <x-authentication-card-logo />
+                <p class="font-bold text-lg text-nowrap text-gray-900 dark:text-white">{{env('APP_NAME')}}</p>
+            </div>
             <ul class="space-y-2 font-medium flex-1 text-sm mt-4">
                 @if (Auth::user()->role == 'admin')
                     <li>
@@ -207,7 +211,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('referal.index') }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -257,7 +261,7 @@
                     <span class=" text-sm font-bold uppercase me-2 px-2.5 py-0.5 text-slate-100">Need
                         help?</span>
                     <button type="button"
-                        class="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
+                        class="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg  focus:ring-none p-1  "
                         data-dismiss-target="#dropdown-cta" aria-label="Close">
                         <span class="sr-only">Close</span>
                         <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -277,7 +281,22 @@
             </div>
         </div>
     </aside>
-    <nav class="flex items-center justify-end gap-4 bg-white border-b py-3 px-3">
+    <nav class="flex items-center justify-between lg:justify-end gap-4 bg-white border-b py-3 px-3">
+
+        <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar"
+            id="sidebartoggleButton" aria-controls="cta-button-sidebar" type="button"
+            class="inline-flex items-center p-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <span class="sr-only">Open sidebar</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd" fill-rule="evenodd"
+                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                </path>
+            </svg>
+        </button>
+
+
+
 
         <div class="ms-3 relative flex items-center ">
 
@@ -338,12 +357,26 @@
 
         </div>
     </nav>
-    <div class="p- sm:ml-64">
+    <div class="px-4 sm:ml-64">
         {{ $slot }}
     </div>
     @stack('modals')
-
+    <script>
+        tippy('#copyIcon');
+    </script>
     @livewireScripts
+
+
+
+    <script>
+        document.getElementById('sidebartoggleButton').addEventListener('click', function() {
+            document.getElementById('cta-button-sidebar').classList.toggle('-translate-x-full');
+        });
+        document.getElementById('sidebartoggleButtonClose').addEventListener('click', function() {
+            // console.log('clicked')
+            document.getElementById('cta-button-sidebar').classList.toggle('-translate-x-full');
+        });
+    </script>
 </body>
 
 </html>

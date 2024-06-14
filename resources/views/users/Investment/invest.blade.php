@@ -178,22 +178,6 @@
 
         const investform = document.getElementById('investForm');
         investform.submit();
-        // const investmentAmount = document.getElementById('investment_amount').value;
-        // const investmentPlanId = document.querySelector('input[name="investment_plan_id"]').value;
-        // const url = "{{ route('invest.now') }}";
-        // const data = {
-        //     investment_amount: investmentAmount,
-        //     investment_plan_id: investmentPlanId
-        // };
-
-        // axios.post(url, data)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         // show the dialog
-        //         document.getElementById('investDialog').style.display = 'block';
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
+       
     }
 </script>

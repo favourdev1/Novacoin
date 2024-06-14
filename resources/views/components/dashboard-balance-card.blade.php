@@ -29,7 +29,7 @@
 
                             <p class="hover:bg-gray-200 rounded px-2 py-1.5">
 
-                                <a href="#" class="">Fund
+                                <a href="{{ route('fundAccount.index') }}" class="">Fund
                                     Account</a>
                             </p>
                             <p class="hover:bg-gray-200 rounded px-2 py-1.5">

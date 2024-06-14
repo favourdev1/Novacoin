@@ -1,7 +1,7 @@
 <x-sidebar>
     <div class="container mx-auto text-sm">
-        <div class="bg-white border rounded-xl sm:my-6 sm:p-6">
-            <div class="flex items-center mb-4 justify-between">
+        <div class="bg-white border rounded-xl sm:my-6 sm:p-6  mt-5">
+            <div class="flex items-center mb-4 justify-between p-3">
 
                 <h1 class="text-2xl font-bold ">All funding </h1>
 
@@ -30,7 +30,7 @@
 
                             <th class="py-3 px-6 text-left">Approval Status</th>
                             <th class="py-3 px-6 text-left">Date</th>
-                            <th class="py-3 px-6 text-left">Action</th>
+                           
 
                         </tr>
                     </thead>
@@ -48,7 +48,7 @@
 
                                 <td class="py-3 px-6 text-left">${{ $funding->amount }}</td>
                                 <td class="py-3 px-6 text-left"><a href=""><img
-                                            src="{{ $funding->payment_proof }}" /></a>
+                                            src="{{ $funding->payment_proof }}" /></a></td>
                                 <td class="py-3 px-6 text-left">
                                     <span
                                         class="{{ $funding->status == 'approved' ? 'bg-green-200 text-green-600' : 'bg-gray-200 text-grey-600' }} py-1 px-3 rounded-full text-xs">
@@ -57,15 +57,9 @@
                                 </td>
 
                             
-                                <td class="py-3 px-6 text-left">{{ $funding->created_at }}</td>
+                                <td class="py-3 px-6 text-left text-nowrap">{{ $funding->created_at }}</td>
 
-                                <td class="py-3 px-6 text-left flex items-center gap-2">
-
-                                    @if ($funding->status == 'approved' ||$funding->status =='disapproved')
-                                        <button type="submit" disabled
-                                            class="bg-gray-500 text-white py-1 px-2 rounded text-xs cursor-not-allowed">{{$funding->status}}</button>
-                                
-                                    @endif
+                               
                             </tr>
                         @endforeach
                     </tbody>

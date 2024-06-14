@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             InvestmentPlansTableSeeder::class,
             WalletsTableSeeder::class,
             FundAccountsTableSeeder::class,
+            WalletCurrenySeeder::class,
         ]);
     }
 }

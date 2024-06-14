@@ -11,12 +11,13 @@
                             <i class="bi bi-info-circle-fill small"></i>
                         </a></h5>
                     <h2 class="fw-bold text-dark" style="font-size:2rem" id="todayEarnings">
-                        ${{ number_format($calcInvestmentEarningsToday, 5) }}</h2>
+                        ${{ $calcInvestmentEarningsToday == 0 ? 0 : number_format($calcInvestmentEarningsToday, 5) }}
+                    </h2>
 
                 </div>
             </div>
             <x-dashboard-card title="Investment Earnings" info="After US royalty withholding tax"
-                amount="{{ number_format($earnings, 2) }}" />
+                amount="${{ number_format($earnings, 2) }}" />
             <x-dashboard-card title="Active Investments" info="After US royalty withholding tax"
                 amount="{{ $myActiveInvestmentCount }}" />
 
@@ -27,7 +28,7 @@
 
 
 
-        <div x-data="{ tab: 'tab1' }" class="w-full mb-6 md:mb-0">
+        <div x-data="{ tab: '{{ count($allMyActiveInvestment) < 1 ? 'tab2' : 'tab1' }}' }" class="w-full mb-6 md:mb-0">
             <div class="w-full overflow-hidden text-sm pt-4">
                 <div class="lg:px-10">
                     <nav class="flex flex-col sm:flex-row gap-3 border-b">
@@ -74,21 +75,34 @@
                         <div class="py-4 pl-2">
                             <p class="font-bold text-gray-700 uppercase text-xl ">My Investment</p>
                         </div>
-                        <div>
-                            <div
-                                class="grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4">
-                                @foreach ($allMyActiveInvestment as $investment)
-                                    <x-investment-card investment-id="{{ $investment->id }}"
-                                        investment-name="{{ $investment->name }}"
-                                        investment-amount="{{ $investment->min_amount }}"
-                                        investment-status="{{ $investment->status }}"
-                                        min-investment="{{ $investment->min_amount }}"
-                                        max-investment="{{ $investment->max_amount }}"
-                                        investment-duration="{{ $investment->duration }}"
-                                        daily-interest="{{ $investment->daily_interest }}" />
-                                @endforeach
+                        @if (count($allMyActiveInvestment) < 1)
+                            <div class="flex items-center justify-center h-96">
+                                <div class="text-center">
+                                    <x-empty-svg-component />
+
+                                    <p class="text-gray-500">You have no active investment</p>
+                                    <button @click="tab = 'tab2'" class="px-4 py-2 bg-blue-600 text-white rounded">Start
+                                        Investing </button>
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div>
+                                <div
+                                    class="grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4">
+
+                                    @foreach ($allMyActiveInvestment as $investment)
+                                        <x-active-investment-card investment-id="{{ $investment->id }}"
+                                            investment-name="{{ $investment->name }}"
+                                            investment-amount="{{ $investment->min_amount }}"
+                                            investment-status="{{ $investment->status }}"
+                                            min-investment="{{ $investment->min_amount }}"
+                                            max-investment="{{ $investment->max_amount }}"
+                                            investment-duration="{{ $investment->duration }}"
+                                            daily-interest="{{ $investment->daily_interest }}" />
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <!-- Content for Tab 2 -->
                     <div x-show="tab === 'tab2'" class="tab-content">
@@ -99,6 +113,7 @@
                             <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4">
                                 @foreach ($investmentPlan as $investment)
                                     <x-investment-card investment-id="{{ $investment->id }}"
+                                      
                                         investment-name="{{ $investment->name }}"
                                         investment-amount="{{ $investment->min_amount }}"
                                         investment-status="{{ $investment->status }}"
@@ -112,7 +127,25 @@
                     </div>
                     <!-- Content for Tab 3 -->
                     <div x-show="tab === 'tab3'" class="tab-content">
-                        <p>Content for Tab 3</p>
+                        <div class="py-4 pl-2">
+                            <p class="font-bold text-blue-700 uppercase text-xl ">Available Investment </p>
+                        </div>
+                        <div>
+                            <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4">
+                                @foreach ($allEndedInvestment as $investment)
+                                
+                                    <x-investment-card investment-id="{{ $investment->id }}"
+                                        is-active={{false}}
+                                        investment-name="{{ $investment->name }}"
+                                        investment-amount="{{ $investment->min_amount }}"
+                                        investment-status="{{ $investment->status }}"
+                                        min-investment="{{ $investment->min_amount }}"
+                                        max-investment="{{ $investment->max_amount }}"
+                                        investment-duration="{{ $investment->duration }}"
+                                        daily-interest="{{ $investment->daily_interest }}" />
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,13 +164,17 @@
                     .then(response => {
                         console.log(response.data)
                         if (response.data.earnings) {
-                            todayEarnings.textContent = Number(response.data.earnings).toFixed(5);
+                            if (response.data.earnings > 0) {
+                                todayEarnings.textContent = "$" + Number(response.data.earnings).toFixed(5);
+                            } else {
+                                todayEarnings.textContent = "$0";
+                            }
                         } else {
-                            todayEarnings.textContent = 0;
+                            todayEarnings.textContent = "$0";
                         }
                     })
                     .catch(error => {
-                        todayEarnings.textContent = 0;
+                        todayEarnings.textContent = "$0";
                         console.error(error);
                     });
             }

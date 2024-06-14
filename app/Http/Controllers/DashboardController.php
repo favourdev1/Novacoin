@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class DashboardController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class DashboardController extends Controller
     {
         // greeting the user
         $greetings = 'Hello, ' . auth()->user()->username;
-        return view('dashboard', compact('greetings'));
+        $referrals = User::where('referrer_id', auth()->user()->referral_code)->get();
+        return view('dashboard', compact('greetings','referrals'));
     }
 
     /**

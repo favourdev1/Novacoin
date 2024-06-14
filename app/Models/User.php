@@ -31,6 +31,8 @@ class User extends Authenticatable
         'account_number',
         'email',
         'password',
+        'referrer_id',
+        'referral_code',
     ];
 
     /**
@@ -65,5 +67,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    public function referrer()
+    {
+        return $this->belongsTo(User::class, 'referrer_id');
+    }
+
+    public function downliners()
+    {
+        return $this->hasMany(User::class, 'referrer_id');
     }
 }
