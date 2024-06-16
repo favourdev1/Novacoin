@@ -1,6 +1,6 @@
-
+@props(['width'])
 <div class="">
-    <div class="rounded-xl border  p-4 bg-blue-600 h-100">
+    <div class="rounded-xl border  p-4 bg-blue-600 h-100 {{$width??''}}">
         <div class="flex items-center justify-between">
             <h5 class=" text-sm text-slate-50"> {{$title}}<a tabindex="0" class="h6 mb-0" role="button"
                     data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top"

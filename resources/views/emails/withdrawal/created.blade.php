@@ -1,17 +1,33 @@
 <x-mail::message>
-# Introduction
 
-# Withdrawal Request Created
+<div >
+    <x-logo-component/>
+  </div>
+  
 
-Dear ,
+# Withdrawal Request 
 
-You have requested a withdrawal of from your  wallet.
+Dear {{ $withdrawal->user->firstname." ".$withdrawal->user->lastname }},
 
-We are processing your request and will transfer the funds to the following address: {{ $withdrawal->wallet_address }}.
+You have requested a withdrawal of $<strong>{{ $withdrawal->amount }}</strong> from your wallet.
 
-<div style="background-color: #ebf8ff; padding: 1em; border-radius:8px; font-size:12px">
-    This is some text in a section with a blue background and blue border.
-</div>
+We are processing your request and will transfer the funds to the following address: <strong>{{ strtoupper($withdrawal->wallet_address) }}</strong>
+
+Here are the details of the withdrawal:
+- Amount: $<strong>{{ $withdrawal->amount }}</strong>
+- Withdrawal Address: <strong>{{ strtoupper($withdrawal->wallet_address) }}</strong>
+
+
+Otherwise, please click the button below to confirm your withdrawal:
+
+<x-mail::button url="{{ url('dashboard/confirm/withdraw/' . $withdrawal_token->token) }}">
+Confirm Withdrawal
+</x-mail::button>
+
+<p>
+
+    If you did not make this request, please contact us immediately.
+</p>
 
 Thank you for using our service!
 

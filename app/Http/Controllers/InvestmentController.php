@@ -327,6 +327,7 @@ class InvestmentController extends Controller
             $earnings += $plan->amount * $minutesPassedToday * $minuteInterest;
             // Do something with the earnings...
         }
+        
 
         return $earnings;
     }
@@ -371,7 +372,7 @@ class InvestmentController extends Controller
         }
 
         return response()->json([
-            'earnings' => $investmentPlans
+            'earnings' => $earnings
 
         ]);
     }

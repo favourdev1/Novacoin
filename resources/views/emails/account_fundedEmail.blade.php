@@ -1,8 +1,8 @@
 @component('mail::layout')@component('mail::message')
 {{-- Add the app icon --}}
-{{-- Add the app icon --}}
+
 <div style="width:40px; height:40px">
-    <img src="{{ asset('path/to/logo.png') }}" alt="App Logo">
+  <x-logo-component/>
 </div>
 
 

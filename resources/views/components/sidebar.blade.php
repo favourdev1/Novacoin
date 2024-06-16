@@ -39,11 +39,7 @@
 
     @if (session('success'))
         <script>
-            showAlert({
-                {
-                    session('success')
-                }
-            }, "success")
+            showAlert("{{ session('success') }}", "success")
         </script>
     @endif
     @if (session('error'))
@@ -51,7 +47,6 @@
             showAlert("{{ session('error') }}", "danger")
         </script>
     @endif
-
 
     <aside id="cta-button-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-2"
@@ -70,9 +65,11 @@
                     </path>
                 </svg>
             </button>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4" >
+                <a href="{{route('home')}}" class="flex items-center gap-4 white-nowrap">
                 <x-authentication-card-logo />
-                <p class="font-bold text-lg text-nowrap text-gray-900 dark:text-white">{{env('APP_NAME')}}</p>
+                <p class="font-bold text-lg text-nowrap inline-flex text-gray-900 dark:text-white">{{ env('APP_NAME') }}</p>
+            </a>
             </div>
             <ul class="space-y-2 font-medium flex-1 text-sm mt-4">
                 @if (Auth::user()->role == 'admin')
@@ -236,6 +233,20 @@
                             </svg>
 
                             <span class="flex-1 ms-3 whitespace-nowrap">Deposit Record</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('withdraw.record') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="flex-shrink-0 w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                fill="currentColor">
+                                <path
+                                    d="M19.5 21a3 3 0 0 0 3-3v-4.5a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h15ZM1.5 10.146V6a3 3 0 0 1 3-3h5.379a2.25 2.25 0 0 1 1.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 0 1 3 3v1.146A4.483 4.483 0 0 0 19.5 9h-15a4.483 4.483 0 0 0-3 1.146Z" />
+                            </svg>
+
+                            <span class="flex-1 ms-3 whitespace-nowrap">Withdrawal Record</span>
                         </a>
                     </li>
                     <li>

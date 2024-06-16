@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('wallet_id')->constrained()->onDelete('cascade');
             $table->string('wallet_address');
             $table->decimal('amount', 20, 2);
-            $table->enum('status', ['pending', 'approved', 'declined'])->default('pending');
+            $table->enum('status', ['email_pending','pending', 'approved', 'declined'])->default('pending');
             $table->string('decline_reason')->nullable();
           
 

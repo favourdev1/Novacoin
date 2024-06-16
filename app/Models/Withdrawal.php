@@ -16,4 +16,15 @@ class Withdrawal extends Model
         'status',
         'decline_reason'
     ];
+
+
+    /**
+     * Get the user that owns the withdrawal.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

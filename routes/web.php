@@ -11,6 +11,7 @@ use App\Http\Controllers\WithdrawController;
 use App\Http\Middleware\RunEveryTime;
 use App\Mail\WithdrawalCreated;
 use App\Models\Withdrawal;
+use App\Models\withdrawal_token;
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,6 +66,11 @@ Route::middleware(RunEveryTime::class) ->group(function () {
 
                 Route::controller(WithdrawController::class)->group(function () {
                     Route::get('/withdraw', 'index')->name('withdraw.index');
+                    Route::post('/withdraw','withdrawFund')->name('withdraw.fund');
+
+                    Route::get('/withdraw/record', 'showWithdrawRecord')->name('withdraw.record');
+
+                    Route::get('/confirm/withdraw/{token}', 'confirmWithdrawal')->name('confirm.withdraw');
                 });
 
                 // Investment Route for users 
@@ -137,5 +143,13 @@ Route::get('/mailable2', function () {
     $withdrawal->status = 'pending';
     $withdrawal->save();
 
-    return new WithdrawalCreated($withdrawal);
+
+      // save infomation to the withdrawal_token
+      $withdrawalToken = new withdrawal_token();
+      $withdrawalToken->token = bin2hex(random_bytes(32));
+      $withdrawalToken->user_id = auth()->user()->id;
+      $withdrawalToken->withdrawal_id = 1;
+      $withdrawalToken->save();
+   
+    return new WithdrawalCreated($withdrawal,$withdrawalToken);
 });

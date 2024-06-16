@@ -1,9 +1,10 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+           <img src="{{ asset('assets/images/logo (2).png') }}" alt="logo" class="w-16 h-16 mx-auto" class="">
+            
         </x-slot>
-        <div class="w-full flex items-center justify-center font-bold text-xl">
+        <div class="w-full flex items-center justify-center font-bold text-xl mt-2 text-[#404059]">
 
             Login To Continue
         </div>

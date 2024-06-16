@@ -212,11 +212,15 @@
             class="grid lg:grid-cols-3 xl:grid-cols-3 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4 text-xl  w-full lg:w-2/3">
 
             @foreach ($investmentPlan as $investment)
+            @if($investment->status == 'active')
                 <x-investment-card investment-id="{{ $investment->id }}" investment-name="{{ $investment->name }}"
                     investment-amount="{{ $investment->min_amount }}" investment-status="{{ $investment->status }}"
                     min-investment="{{ $investment->min_amount }}" max-investment="{{ $investment->max_amount }}"
                     investment-duration="{{ $investment->duration }}"
-                    daily-interest="{{ $investment->daily_interest }}" />
+                    daily-interest="{{ $investment->daily_interest }}" 
+                    is-active="{{ $investment->status == 'inactive'}}" 
+                    />
+            @endif
             @endforeach
         </div>
     </div>
