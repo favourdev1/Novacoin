@@ -28,7 +28,7 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->username }}" class="rounded-full h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->
@@ -55,12 +55,12 @@
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="{{ __('Name') }}" />
-            <x-input id="name" type="text" class="text-sm mt-1 block w-full" wire:model="state.username" required autocomplete="name"  />
+            <x-input id="name" disabled='false' type="text" class="text-sm mt-1 block w-full" wire:model="state.username" required autocomplete="name"  />
             <x-input-error for="name" class="mt-2" />
         </div>
 {{-- firstname --}}
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="firstname" value="{{ __('Firstname') }}" />
+            <x-label for="firstname" value="{{ __('Firstname') }}"  />
             <x-input id="firstname" type="text" class="text-sm mt-1 block w-full" wire:model="state.firstname" required autocomplete="firstname"  />
             <x-input-error for="name" class="mt-2" />
         </div>
@@ -75,7 +75,7 @@
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="email" value="{{ __('Email') }}" />
-            <x-input id="email" type="email" class=" text-sm mt-1 block w-full" wire:model="state.email" required autocomplete="username" />
+            <x-input id="email" type="email" disabled='false' class=" text-sm mt-1 block w-full" wire:model="state.email" required autocomplete="username" />
             <x-input-error for="email" class="mt-2" />
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && ! $this->user->hasVerifiedEmail())
@@ -96,7 +96,7 @@
         </div>
     </x-slot>
 
-    {{-- <x-slot name="actions">
+    <x-slot name="actions">
         <x-action-message class="me-3" on="saved">
             {{ __('Saved.') }}
         </x-action-message>
@@ -104,5 +104,5 @@
         <x-button wire:loading.attr="disabled" wire:target="photo">
             {{ __('Save') }}
         </x-button>
-    </x-slot> --}}
+    </x-slot>
 </x-form-section>

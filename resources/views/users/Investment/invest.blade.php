@@ -50,8 +50,7 @@
                     </div>
 
                     <div class="mb-4 flex items-center justify-between w-full">
-                        <label for="max_amount" class="block text-sm text-gray-700  font-bold mb-2">Max Investment
-                            Amount</label>
+                        <label for="max_amount" class="block text-sm text-gray-700  font-bold mb-2">Max Investment Amount</label>
                         <input disabled type="number" name="max_amount" id="max_amount"
                             class="appearance-none text-sm border-none rounded w-max py-1.5  px-3 text-gray-700 focus:outline-none focus:ring"
                             value="{{ $investmentPlan->max_amount }}" required>

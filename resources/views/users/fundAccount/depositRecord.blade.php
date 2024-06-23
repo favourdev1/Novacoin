@@ -1,9 +1,9 @@
 <x-sidebar>
     <div class="container mx-auto text-sm">
-        <div class="bg-white border rounded-xl sm:my-6 sm:p-6  mt-5">
+        <div class="bg-white border rounded-xl sm:my-6 sm:p-6  mt-5 md:mt-o">
             <div class="flex items-center mb-4 justify-between p-3">
 
-                <h1 class="text-2xl font-bold ">All funding </h1>
+                <h1 class="text-2xl font-bold mb-0">Deposit Records </h1>
 
             </div>
 
@@ -47,8 +47,9 @@
                                 <td class="py-3 px-6 text-left">{{ $funding->wallet_name }}</td>
 
                                 <td class="py-3 px-6 text-left">${{ $funding->amount }}</td>
-                                <td class="py-3 px-6 text-left"><a href=""><img
-                                            src="{{ $funding->payment_proof }}" /></a></td>
+                                <td class="py-3 px-6 text-left"><a href="{{ asset('storage/payment_proofs/' . $funding->payment_proof) }}" target="_blank"><img class="w-5 h-5 rounded-full border object-cover"
+                                    src="{{ asset('storage/payment_proofs/' . $funding->payment_proof) }}" /></a>
+                        </td>
                                 <td class="py-3 px-6 text-left">
                                     <span
                                         class="{{ $funding->status == 'approved' ? 'bg-green-200 text-green-600' : 'bg-gray-200 text-grey-600' }} py-1 px-3 rounded-full text-xs">

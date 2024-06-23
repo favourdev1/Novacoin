@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UsersInvestment;
 use Illuminate\Http\Request;
 use App\Models\User;
+
 class DashboardController extends Controller
 {
     /**
@@ -14,54 +16,18 @@ class DashboardController extends Controller
         // greeting the user
         $greetings = 'Hello, ' . auth()->user()->username;
         $referrals = User::where('referrer_id', auth()->user()->referral_code)->get();
-        return view('dashboard', compact('greetings','referrals'));
+        $userId = auth()->user()->id;
+        $investmentController = new InvestmentController();
+        $calcInvestmentEarningsToday = $investmentController->calcInvestmentEarningsToday($userId);
+
+
+        $myActiveInvestmentCount = UsersInvestment::join('investment_plans', 'investment_plans.id', '=', 'users_investments.investment_plan_id')
+            ->where('user_id', $userId)
+            ->where('investment_plans.status', 'active')
+            ->count();
+        $earnings = $investmentController->calcInvestmentEarningsMinute($userId);
+        return view('dashboard', compact('greetings', 'referrals','calcInvestmentEarningsToday','earnings','myActiveInvestmentCount'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
 }

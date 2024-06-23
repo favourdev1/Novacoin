@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Faq;
 use App\Models\InvestmentPlans;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,7 +16,8 @@ class HomeController extends Controller
             ->take(6)
             ->get();
         $faqs = Faq::all();
+        $testimonials = Testimonial::all();
 
-        return view('welcome', compact('investmentPlan','faqs'));
+        return view('welcome', compact('investmentPlan','faqs','testimonials'));
     }
 }

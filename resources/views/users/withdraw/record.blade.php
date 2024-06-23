@@ -8,15 +8,15 @@
             </div>
 
             <div class="flex items-center gap-3 pb-4">
-                <a href="{{ route('withdraw.record') }}"
+                <a href="{{ route('withdrawals.record') }}"
                     class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == '' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">All</a>
-                <a href="{{ route('withdraw.record', ['filter' => 'pending']) }}"
+                <a href="{{ route('withdrawals.record', ['filter' => 'pending']) }}"
                     class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'pending' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Pending</a>
 
-                <a href="{{ route('withdraw.record', ['filter' => 'approved']) }}"
+                <a href="{{ route('withdrawals.record', ['filter' => 'approved']) }}"
                     class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'approved' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Approved</a>
 
-                    <a href="{{ route('withdraw.record', ['filter' => 'disapproved']) }}"
+                    <a href="{{ route('withdrawals.record', ['filter' => 'disapproved']) }}"
                         class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'disapproved' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Disapproved</a>
             </div>
             <div class="overflow-x-auto">

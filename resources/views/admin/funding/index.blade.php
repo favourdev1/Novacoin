@@ -14,8 +14,8 @@
                 <a href="{{ route('admin.fundings', ['filter' => 'approved']) }}"
                     class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'approved' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Approved</a>
 
-                    <a href="{{ route('admin.fundings', ['filter' => 'disapproved']) }}"
-                        class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'disapproved' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Disapproved</a>
+                <a href="{{ route('admin.fundings', ['filter' => 'disapproved']) }}"
+                    class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'disapproved' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Disapproved</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white">
@@ -48,8 +48,11 @@
                                 <td class="py-3 px-6 text-left">{{ $funding->wallet_name }}</td>
 
                                 <td class="py-3 px-6 text-left">${{ $funding->amount }}</td>
-                                <td class="py-3 px-6 text-left"><a href=""><img
-                                            src="{{ $funding->payment_proof }}" /></a>
+                                <td class="py-3 px-6 text-left"><a
+                                        href="{{ asset('storage/payment_proofs/' . $funding->payment_proof) }}"><img
+                                            class="w-5 h-5"
+                                            src="{{ asset('storage/payment_proofs/' . $funding->payment_proof) }}" /></a>
+                                </td>
                                 <td class="py-3 px-6 text-left">
                                     <span
                                         class="{{ $funding->status == 'approved' ? 'bg-green-200 text-green-600' : 'bg-gray-200 text-grey-600' }} py-1 px-3 rounded-full text-xs">
@@ -63,22 +66,24 @@
 
                                 <td class="py-3 px-6 text-left flex items-center gap-2">
 
-                                    @if ($funding->status == 'approved' ||$funding->status =='disapproved')
+                                    @if ($funding->status == 'approved' || $funding->status == 'disapproved')
                                         <button type="submit" disabled
-                                            class="bg-gray-500 text-white py-1 px-2 rounded text-xs cursor-not-allowed">{{$funding->status}}</button>
+                                            class="bg-gray-500 text-white py-1 px-2 rounded text-xs cursor-not-allowed">{{ $funding->status }}</button>
                                     @else
-                                        <form action="{{route('admin.approvePayment') }}" method="POST">
+                                        <form action="{{ route('admin.approvePayment') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$funding->fund_accountId}}">
+                                            <input type="hidden" name="id"
+                                                value="{{ $funding->fund_accountId }}">
                                             @method('POST')
                                             <button type="submit"
                                                 class="bg-green-500 text-white py-1 px-2 rounded text-xs">Approve
                                                 Payment</button>
                                         </form>
 
-                                        <form action="{{route('admin.disapprovePayment') }}" method="POST">
+                                        <form action="{{ route('admin.disapprovePayment') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$funding->fund_accountId}}">
+                                            <input type="hidden" name="id"
+                                                value="{{ $funding->fund_accountId }}">
                                             @method('POST')
                                             <button type="submit"
                                                 class="bg-red-500 text-white py-1 px-2 rounded text-xs focus-within:borer:none">Disapprove

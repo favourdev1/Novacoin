@@ -327,7 +327,9 @@ class InvestmentController extends Controller
             $earnings += $plan->amount * $minutesPassedToday * $minuteInterest;
             // Do something with the earnings...
         }
-        
+        // echo "<pre>";
+        // print_r($minutesPassedToday);
+        // die;
 
         return $earnings;
     }

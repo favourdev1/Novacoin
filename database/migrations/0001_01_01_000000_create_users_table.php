@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('account_number')->unique();
             $table->decimal('balance', 10, 2)->default(0);
             $table->string('role')->default('user');
+            $table->boolean('is_banned')->default(false);
             $table->string('referral_code');
             $table->string('referrer_id')->nullable();
             $table->string('password');

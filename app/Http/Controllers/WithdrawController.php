@@ -56,7 +56,7 @@ class WithdrawController extends Controller
 
 
         Mail::to(auth()->user()->email)->send(new WithdrawalCreated($withdrawal, $withdrawalToken));
-        return redirect()->route('withdraw.record')->with('success', 'Withdrawal request sent successfully');
+        return redirect()->route('withdrawals.record')->with('success', 'Withdrawal request sent successfully');
     }
 
     // public function withdrawFund(Request $request)

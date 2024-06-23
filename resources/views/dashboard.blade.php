@@ -12,15 +12,28 @@
                         Invest </a>
                     <a href="{{ route('fundAccount.index') }}"
                         class="bg-indigo-500 rounded-lg px-4 text-sm focus:ring-0 focus:outline-none py-1.5">
-                        Fund Account </a>
+                        Fund  </a>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+            <div class="flex flex-no-wrap overflow-x-auto md:grid md:grid-cols-4 gap-2  removescrollbarHeight h-max">
 
-                <x-dashboard-card title="Today's Earnings" info="After US royalty withholding tax" amount="0" />
-                <x-dashboard-card title="Today's Earnings" info="After US royalty withholding tax" amount="0" />
-                <x-dashboard-card title="Today's Earnings" info="After US royalty withholding tax" amount="0" />
+
+                <div class="rounded-xl border  p-4 bg-white h-100 mh-6 min-w-[80vw] md:min-w-0">
+                    <h5 class="text-gray-600 text-sm"> Today's Earnings <a tabindex="0" class="h6 mb-0" role="button"
+                            data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top"
+                            data-bs-original-title="" title="">
+                            <i class="bi bi-info-circle-fill small"></i>
+                        </a></h5>
+                    <h2 class="fw-bold text-dark" style="font-size:2rem" id="todayEarnings">
+                        ${{ $calcInvestmentEarningsToday == 0 ? 0 : number_format($calcInvestmentEarningsToday, 5) }}
+                    </h2>
+
+                </div>
+                <x-dashboard-card  :width="'min-w-[80vw] md:min-w-0'" title="Investment Earnings" info="After US royalty withholding tax"
+                amount="${{ number_format($earnings, 2) }}" />
+                <x-dashboard-card   :width="'min-w-[80vw] md:min-w-0'" title="Active Investments" info="After US royalty withholding tax"
+                amount="{{ $myActiveInvestmentCount }}" />
 
                 <x-dashboard-balance-card title="Balance" info="" amount="${{ Auth::user()->balance }}" />
 
@@ -84,21 +97,21 @@
                 <p class="font-bold text-lg border-t mt-3 pt-4">My Referrals </p>
                 <div class=" text-sm max-h-64 min-h-48 overflow-y-scroll hide-scrollbar">
                     <div class="">
-                        @foreach($referrals as $referral)
-                            
-                        <div class="flex items-center  bg-gray-50 border rounded-xl py-2 px-4 mt-2">
-                            {{-- profile image  --}}
-                            {{-- <img src="{{ asset('images/profile.jpg') }}" alt="profile" class="w-10 h-10 rounded-full"> --}}
-                            <div>
-                                <p class="font-semibold text-sm">{{$referral->firstname." ".$referral->lastname}}</p>
-                                <p class="text-gray-500 text-xs">Joined {{$referral->created_at->diffForHumans()}}</p>
+                        @foreach ($referrals as $referral)
+                            <div class="flex items-center  bg-gray-50 border rounded-xl py-2 px-4 mt-2">
+                                {{-- profile image  --}}
+                                {{-- <img src="{{ asset('images/profile.jpg') }}" alt="profile" class="w-10 h-10 rounded-full"> --}}
+                                <div>
+                                    <p class="font-semibold text-sm">{{ $referral->firstname . ' ' . $referral->lastname }}
+                                    </p>
+                                    <p class="text-gray-500 text-xs">Joined {{ $referral->created_at->diffForHumans() }}
+                                    </p>
+                                </div>
+
                             </div>
+                        @endforeach
 
-                        </div>
 
-                      @endforeach
-
-                        
                     </div>
                 </div>
             </div>
@@ -131,3 +144,33 @@
         /* For Chrome, Safari, and Opera */
     }
 </style>
+
+
+<script>
+    // axios requet to fetch todays earnings
+    setInterval(() => {
+        getTodayEarnings()
+    }, 1000);
+
+    function getTodayEarnings() {
+        const todayEarnings = document.querySelector('#todayEarnings');
+        const endpoint = "{{ route('todayEarnings.Api', ['id' => Auth::user()->id]) }}";
+        axios.get(endpoint)
+            .then(response => {
+                // console.log(response.data)
+                if (response.data.earnings) {
+                    if (response.data.earnings > 0) {
+                        todayEarnings.textContent = "$" + Number(response.data.earnings).toFixed(5);
+                    } else {
+                        todayEarnings.textContent = "$0";
+                    }
+                } else {
+                    todayEarnings.textContent = "$0";
+                }
+            })
+            .catch(error => {
+                todayEarnings.textContent = "$0";
+                console.error(error);
+            });
+    }
+</script>

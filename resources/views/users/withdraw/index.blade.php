@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="grid grid-cols-2 p-4 ">
-                    <x-dashboard-balance-card title="balance" amount="{{ Auth::user()->balance }}" info="" />
+                    <x-dashboard-balance-card title="Balance" amount="{{ Auth::user()->balance }}" info="" />
                 </div>
                 <div class="p-4  px-6">
                     <p class="font-extrabold  uppercase text-blue-700 text-sm">Amount to Withdraw </p>

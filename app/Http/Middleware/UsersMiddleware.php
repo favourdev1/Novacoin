@@ -21,6 +21,9 @@ class UsersMiddleware
             return redirect()->route('login'); // Redirect to login if not authenticated
         }
 
+        if(Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard'); // Redirect to admin dashboard if user is an admin
+        }
         // Check if the user is an admin
         if (Auth::user()->role !== 'user') {
             return redirect()->route('home')->withErrors(['message' => 'You do not have administrative access.']);

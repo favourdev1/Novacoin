@@ -16,6 +16,7 @@
 
                             <th class="py-3 px-6 text-left">Lastname</th>
                             <th class="py-3 px-6 text-left">Email</th>
+                            <th class="py-3 px-6 text-left">Balance</th>
 
                             <th class="py-3 px-6 text-left">Role</th>
                             <th class="py-3 px-6 text-left">Action</th>
@@ -35,6 +36,7 @@
 
                             <td class="py-3 px-6 text-left">{{$users->lastname}}</td>
                             <td class="py-3 px-6 text-left">{{$users->email}}</td>
+                            <td class="py-3 px-6 text-left">${{$users->balance}}</td>
                             <td class="py-3 px-6 text-left">
                             <span class="{{ $users->role == 'users' ? 'bg-green-200 text-green-600' : 'bg-red-200 text-red-600' }} py-1 px-3 rounded-full text-xs">
                                 {{ $users->role }}
@@ -42,9 +44,9 @@
                         </td>
                             <td class="py-3 px-6 text-left flex items-center gap-2">
                                 <a
-                                    href=""
+                                    href="{{route('admin.showUser', $users->id)}}"
                                     class="bg-blue-500 text-white py-1 px-2 rounded text-xs"
-                                >Edit</a>
+                                >View</a>
                                 <form
                                     action=" }}"
                                     method="POST"

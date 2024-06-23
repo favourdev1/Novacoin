@@ -34,7 +34,7 @@
                             </p>
                             <p class="hover:bg-gray-200 rounded px-2 py-1.5">
 
-                                <a href="#" class=" ">Withdraw Funds </a>
+                                <a href="{{route('withdraw.index')}}" class=" ">Withdraw Funds </a>
                             </p>
 
 
