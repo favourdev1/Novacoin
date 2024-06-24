@@ -9,7 +9,7 @@
             $headerText = $isEdit ? 'Edit Faq Information' : 'Create Faq Information';
         @endphp
 
-        <form class="rounded-lg border border-[#e0e0e0] w-full md:w-2/4 xl:w-1/3 text-sm text-gray-600"
+        <form class="rounded-lg border border-[#e0e0e0] bg-white w-full md:w-2/4 xl:w-1/3 text-sm text-gray-600"
             action="{{ $formAction }}" method="POST">
             <div class="p-4 border-b">
                 <h3 class="font-bold text-xl ">{{ $headerText }}</h3>

@@ -30,8 +30,9 @@ class InvestmentController extends Controller
      */
     public function create()
     {
-        $investmentPlan = InvestmentPlans::paginate(10);
-        return view('admin.plans.create', compact('investmentPlan'));
+        // $investmentPlan = InvestmentPlans::paginate(10);
+        // return view('admin.plans.create', compact('investmentPlan'));
+        return (view('admin.plans.create'));
     }
 
     /**
@@ -156,7 +157,7 @@ class InvestmentController extends Controller
             ->where('user_id', $userId)
             ->orderBy('users_investments.created_at', 'desc')->count();
 
-// all ended investment
+        // all ended investment
         $allEndedInvestment = InvestmentPlans::where('status', 'inactive')->get();
         // All investment queries
         $query = strtolower($request->query('filter'));
@@ -218,7 +219,20 @@ class InvestmentController extends Controller
         $request->validate([
             'investment_amount' => 'required|numeric',
             'investment_plan_id' => 'required|exists:investment_plans,id',
+
         ]);
+
+        // check if the amount to be invested is less than the minimum investment amount
+        $investmentPlan = InvestmentPlans::findOrFail($request->investment_plan_id);
+        if ($request->investment_amount < $investmentPlan->min_amount) {
+            session()->flash('error', 'Investment amount must be at least ' . $investmentPlan->min_amount);
+            return redirect()->back();
+        }
+        // check if the famount to be invvested is greater
+        if ($request->investment_amount > $investmentPlan->max_amount) {
+            session()->flash('error', 'Investment amount must not be more than ' . $investmentPlan->max_amount);
+            return redirect()->back();
+        }
 
         // Check if user has enough balance
         if ($user->balance < $request->investment_amount) {
@@ -386,15 +400,19 @@ class InvestmentController extends Controller
 
 
         // fix from here why its redirecting to the dashboard page 
-        
-  
-        // Validator::make(['id' => $id], [
-        //     'id' => 'required|exists:investment_plans,id',
-        // ])->validate();
-        // $userInvesment = UsersInvestment::join('invesment', 'investment.id', '=', 'users_investment.investment_id')->where('users_investment.user_id', Auth::id())
-        //     ->where('user_investment.id', $id)->get();
 
-        return view('users.investment.show');
+
+        Validator::make(['id' => $id], [
+            'id' => 'required|exists:investment_plans,id',
+        ])->validate();
+        $userInvestment = UsersInvestment::join('investment_plans', 'investment_plans.id', '=', 'users_investments.investment_plan_id')
+            ->where('users_investments.user_id', Auth::user()->id)
+            ->select('users_investments.*', 'investment_plans.*', 'investment_plans.created_at as plan_created_at')
+            ->where('users_investments.investment_plan_id', $id)->first();
+        //    echo "<pre>";
+//     print_r($userInvestment);
+//         die;
+        return view('users.investment.show', compact('userInvestment'));
     }
 
 }

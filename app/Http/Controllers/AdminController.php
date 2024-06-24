@@ -25,7 +25,58 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
 
-    public function makAdmin(Request $request)
+
+
+    public function banUser(Request $request)
+    {
+        // Validation
+        $request->validate([
+            'id' => 'required|integer|exists:users,id'
+        ]);
+    
+        // Retrieve the user
+        $user = User::where('id', $request->id)->first();
+    
+        // Check if user exists before updating
+        if ($user) {
+            $user->update([
+                'is_banned' => true
+            ]);
+    
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'User has been banned successfully.');
+        }
+    
+        // If user is not found, redirect back with an error message
+        return redirect()->back()->with('error', 'User not found.');
+    }
+    
+    public function unbanUser(Request $request)
+    {
+        // Validation
+        $request->validate([
+            'id' => 'required|integer|exists:users,id'
+        ]);
+    
+        // Retrieve the user
+        $user = User::where('id', $request->id)->first();
+    
+        // Check if user exists before updating
+        if ($user) {
+            $user->update([
+                'is_banned' => false
+            ]);
+    
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'User has been unbanned successfully.');
+        }
+    
+        // If user is not found, redirect back with an error message
+        return redirect()->back()->with('error', 'User not found.');
+    }
+
+    
+      public function makAdmin(Request $request)
     {
         $request->validate([
             'user_id' => 'required|exists:users,id'
@@ -654,12 +705,14 @@ class AdminController extends Controller
     {
         $complaint = ContactUs::where('id', $id)->first();
         // make the message as read
-        $complaint->update([
-            'status' => 'read'
-        ]);
-
+        if ($complaint) {
+            // make the message as read
+            $complaint->update([
+                'status' => 'read'
+            ]);
+        }
         
-        return view('admin.complaint.create', compact('complaint'));
+        return view('admin.complaint.show', compact('complaint'));
     }
 
     public function deleteComplaints($id)

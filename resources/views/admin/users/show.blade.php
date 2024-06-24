@@ -38,12 +38,12 @@
                             <span>27 Referrals</span>
                         </div>
                     </div>
-                  
+
                 </div>
                 <div class="mt-4 text-center text-sm">
 
                     <div class="mt-4">
-                         <p class="flex items-center justify-center text-gray-400"><svg
+                        <p class="flex items-center justify-center text-gray-400"><svg
                                 xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-1"
                                 viewBox="0 0 20 20" fill="currentColor">
 
@@ -64,10 +64,26 @@
                     </div>
                 </div>
                 <div class="flex items-center mt-3">
+                    @if ($user->is_banned == true)
+                        <form action="{{ route('admin.setting.unban.user') }}"class="mx-auto w-max" method="POST">
+                            @csrf
+                            {{-- hidden id field --}}
+                            <input type="hidden" name="id" value="{{ $user->id }}">
+                            <button
+                                class=" py-1.5 px-4   font-bold bg-gray-700 ring-gray-400 ring-1 hover:bg-gray-600 text-white rounded-lg w-max mx-auto text-xs">Unban</button>
+                        </form>
 
-                    <button
-                        class=" py-1.5 px-4   font-bold bg-red-700 ring-red-400 ring-1 hover:bg-red-600 text-white rounded-lg w-max mx-auto text-xs">Ban
-                        User</button>
+                    @else
+                    <form action="{{ route('admin.setting.ban.user') }}"class="mx-auto w-max" method="POST">
+                        @csrf
+                        {{-- hidden id field --}}
+                        <input type="hidden" name="id" value="{{ $user->id }}">
+                        <button
+                            class=" py-1.5 px-4   font-bold bg-red-700 ring-red-400 ring-1 hover:bg-red-600 text-white rounded-lg w-max mx-auto text-xs">Ban
+                            User</button>
+                    </form>
+
+                    @endif
                 </div>
 
             </div>
@@ -137,9 +153,9 @@
                             <div id="tab-content" class="p-2 md:p-5 lg:px-10 bg-white min-h-[80vh]">
                                 <!-- Content for Tab 1 -->
                                 <div x-show="tab === 'tab1'" class="tab-content active">
-                                    <div class="w-1/3 py-4">
+                                    <div class="lg:w-1/3 py-4">
                                         <x-dashboard-card title="Today's Earnings"
-                                            info="After US royalty withholding tax" amount="{{ $user->balance }}" />
+                                            info="After US royalty withholding tax" amount="${{ $user->balance }}" />
                                     </div>
 
                                     @include('admin.users.Pages.investTable')
@@ -147,7 +163,7 @@
                                 </div>
                                 <!-- Content for Tab 2 -->
                                 <div x-show="tab === 'tab2'" class="tab-content">
-                                    <div class="w-1/3 py-4">
+                                    <div class="lg:w-1/3 py-4">
                                         <x-dashboard-card title="Today's Earnings"
                                             info="After US royalty withholding tax" amount="{{ $user->balance }}" />
                                     </div>
@@ -156,7 +172,7 @@
                                 </div>
                                 <!-- Content for Tab 3 -->
                                 <div x-show="tab === 'tab3'" class="tab-content">
-                                    <div class="w-1/3 py-4">
+                                    <div class="lg:w-1/3 py-4">
                                         <x-dashboard-card title="Today's Earnings"
                                             info="After US royalty withholding tax" amount="{{ $user->balance }}" />
                                     </div>

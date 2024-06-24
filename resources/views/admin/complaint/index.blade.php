@@ -1,24 +1,15 @@
 <x-sidebar>
     <div class="container mx-auto text-sm">
-        <div class="bg-white border rounded-xl sm:my-6 sm:p-6 min-h-[80vh]">
-            <div class="flex items-center mb-4 justify-between">
+        <div class="bg-white border rounded-xl sm:my-6 p-2 sm:p-6 min-h-[80vh] mt-4">
+            <div class="flex items-center mb-4 justify-between p-2">
 
                 <h1 class="text-2xl font-bold ">Contacts Us</h1>
 
             </div>
 
-            {{-- <div class="flex items-center gap-3 pb-4">
-                <a href="{{ route('admin.withdrawals', ['filter' => 'pending']) }}"
-                    class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'pending' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Pending</a>
-
-                <a href="{{ route('admin.withdrawals', ['filter' => 'approved']) }}"
-                    class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'approved' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Approved</a>
-
-                <a href="{{ route('admin.withdrawals', ['filter' => 'declined']) }}"
-                    class="rounded-lg px-4 py-2 text-sm {{ request()->query('filter') == 'declined' ? 'bg-blue-100 text-blue-500' : 'bg-gray-100 text-gray-500' }}">Declined</a>
-            </div> --}}
+         
             <div class="overflow-x-auto h-full">
-                <table class="min-w-full h-full bg-white h-full">
+                <table class="min-w-full  bg-white h-full">
                     <thead class="bg-gray-200 text-gray-600  text-sm leading-normal">
                         <tr>
                             <th class="py-3 px-6 text-left text-nowrap">#</th>
@@ -90,7 +81,7 @@
                                         <button type="submit" disabled
                                             class="bg-gray-500 text-white py-1 px-2 rounded text-xs cursor-not-allowed">{{ $complaint->status }}</button>
                                     @else
-                                        <x-dropdown align="right" width="48">
+                                        {{-- <x-dropdown align="right" width="48">
                                             <x-slot name="trigger">
                                                 <span class="inline-flex rounded-md">
                                                     <button type="button"
@@ -113,14 +104,16 @@
                                                 <!-- Other dropdown links -->
 
 
-                                                <x-dropdown-link href="#">
-                                                    View
-                                                </x-dropdown-link>
+                                              
 
 
 
                                             </x-slot>
-                                        </x-dropdown>
+                                        </x-dropdown> --}}
+
+                                        <x-dropdown-link href="{{route('admin.setting.complaints.show',$complaint->id)}}">
+                                            View
+                                        </x-dropdown-link>
                                     @endif
                             </tr>
                         @endforeach

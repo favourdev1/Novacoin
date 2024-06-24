@@ -1,6 +1,6 @@
 <x-sidebar>
     <div class="container mx-auto text-sm">
-        <div class="bg-white border rounded-xl sm:my-6 sm:p-6">
+        <div class="bg-white border rounded-xl sm:my-6 sm:p-6 p-2 mt-2">
             <div class="flex items-center mb-4 justify-between">
 
                 <h1 class="text-2xl font-bold ">All users </h1>
@@ -47,17 +47,7 @@
                                     href="{{route('admin.showUser', $users->id)}}"
                                     class="bg-blue-500 text-white py-1 px-2 rounded text-xs"
                                 >View</a>
-                                <form
-                                    action=" }}"
-                                    method="POST"
-                                >
-                                    @csrf
-                                    @method('DELETE')
-                                    <button
-                                        type="submit"
-                                        class="bg-red-500 text-white py-1 px-2 rounded text-xs"
-                                    >Delete</button>
-                                </form>
+                               
                         </tr>
                         @endforeach
                     </tbody>

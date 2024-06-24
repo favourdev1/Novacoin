@@ -1,6 +1,6 @@
 <x-sidebar>
     <div class="container mx-auto text-sm">
-        <div class="bg-white border rounded-xl sm:my-6 sm:p-6">
+        <div class="bg-white border rounded-xl sm:my-6 sm:p-6 p-2 mt-2">
             <div class="flex items-center mb-4 justify-between">
 
                 <h1 class="text-2xl font-bold ">All funding </h1>
@@ -29,7 +29,7 @@
                             <th class="py-3 px-6 text-left">Payment Proof</th>
 
                             <th class="py-3 px-6 text-left">Status</th>
-                            <th class="py-3 px-6 text-left">Approval Status</th>
+                            {{-- <th class="py-3 px-6 text-left">Approval Status</th> --}}
                             <th class="py-3 px-6 text-left">Date</th>
                             <th class="py-3 px-6 text-left">Action</th>
 
@@ -60,8 +60,8 @@
                                     </span>
                                 </td>
 
-                                <td class="py-3 px-6 text-left">
-                                    {{ $funding->approved_by == null ? 'not appproved' : 'approved' }}</td>
+                                {{-- <td class="py-3 px-6 text-left">
+                                    {{ $funding->approved_by == null ? 'not appproved' : 'approved' }}</td> --}}
                                 <td class="py-3 px-6 text-left">{{ $funding->created_at }}</td>
 
                                 <td class="py-3 px-6 text-left flex items-center gap-2">

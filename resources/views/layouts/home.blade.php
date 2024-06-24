@@ -21,13 +21,13 @@
 </head>
 
 <body class="font-sans antialiased text-base text-gray-900 flex flex-col scroll-smooth">
-    <div class="bg-[#111111] text-white pb-4">
+ 
         {{-- navbar --}}
-        <header class="bg-transparent">
-            <nav class="mx-auto flex container items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <header class="z-[99999] fixed w-full bg-[#111111d5] backdrop-blur-lg">
+            <nav class="mx-auto flex container  items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
                     <a href="{{ route('home') }}" class="-m-1.5 p-1.5">
-                        <div class="flex items-center font-black">
+                        <div class="flex items-center font-black text-white">
                             <x-authentication-card-logo :width="'50'" />
                             {{ config('app.name') }}
                         </div>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="flex lg:hidden">
                     <button type="button" id="navShowBtn"
-                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-300">
                         <span class="sr-only">Open main menu</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                             aria-hidden="true">
@@ -47,15 +47,15 @@
                 <div class="hidden lg:flex lg:gap-x-12">
 
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-200">Home</a>
-                    <a href="#features" class="text-sm font-semibold leading-6 text-gray-200">Features</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-200">About</a>
-                    <a href="#plans" class="text-sm font-semibold leading-6 text-gray-200">Our Plans</a>
+                    <a href="/#features" class="text-sm font-semibold leading-6 text-gray-200">Features</a>
+                    <a href="{{ route('about') }}" class="text-sm font-semibold leading-6 text-gray-200">About</a>
+                    <a href="#/plans" class="text-sm font-semibold leading-6 text-gray-200">Our Plans</a>
 
-                    <a href="#faq" class="text-sm font-semibold leading-6 text-gray-200">Faq</a>
+                    <a href="/#faq" class="text-sm font-semibold leading-6 text-gray-200">Faq</a>
                 </div>
-                <div class="hidden lg:flex lg:flex-1 items-center gap-4 lg:justify-end">
+                <div class="hidden lg:flex lg:flex-1 items-center gap-4 lg:justify-end ">
                     @auth
-                        <a href="{{ route('dashboard.index') }}">
+                        <a href="{{ route('dashboard.index') }}" class="text-gray-200">
                             Dashboard
                         </a>
                     @else
@@ -98,27 +98,23 @@
                     </div>
                     <div class="mt-6 flow-root duration-500">
                         <div class="-my-6 divide-y divide-gray-500/10">
-                            <div class="space-y-2 py-6">
-                                <div class="-mx-3">
+                            <div class="space-y-2 py-6" id="navLinksContainer">
 
-                                    <!-- 'Product' sub-menu, show/hide based on menu state. -->
-
-                                
-                                </div>
-                                <a href="#"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Home</a>
-                                <a href="#features"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                                <a href="#plans"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Investment Plans</a>
-                                    <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">About</a>
-                                <a href="#faq"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Faq</a>
+                                <a href="{{ route('home') }}"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 nav-link">Home</a>
+                                <a href="/#features"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 nav-link">Features</a>
+                                <a href="/#plans"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 nav-link">Investment
+                                    Plans</a>
+                                <a href="{{ route('about') }}"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 nav-link">About</a>
+                                <a href="/#faq"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 nav-link">Faq</a>
                             </div>
                             <div class="py-6">
-                                <a href="{{route('login')}}"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
+                                <a href="{{ route('login') }}"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 nav-link">Log
                                     in</a>
                             </div>
                         </div>
@@ -129,10 +125,16 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                const navLinksContainer = document.querySelectorAll('.nav-link');
                 const navShowBtn = document.getElementById('navShowBtn')
                 const closeButton = document.getElementById('navCloseButton');
                 const mobileMenu = document.getElementById('mobileMenu');
+                navLinksContainer.forEach(element => {
+                    element.addEventListener('click', function() {
+                        mobileMenu.classList.toggle('hidden')
 
+                    })
+                });
                 navShowBtn.addEventListener('click', function() {
                     mobileMenu.classList.toggle('hidden')
                 })
@@ -145,40 +147,43 @@
 
 
         <script>
-            document.getElementById('menuButton').addEventListener('click', function() {
-                document.querySelector('ul').classList.toggle('hidden');
-                document.querySelector('div.hidden').classList.toggle('flex');
-                document.querySelector('div.hidden').classList.toggle('hidden');
+            // document.getElementById('menuButton').addEventListener('click', function() {
+            //     document.querySelector('ul').classList.toggle('hidden');
+            //     document.querySelector('div.hidden').classList.toggle('flex');
+            //     document.querySelector('div.hidden').classList.toggle('hidden');
+            // });
+        </script>
+        <div class="mt-2"></div>
+            <div class="mt-20">
+                
+                <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
+                <coingecko-coin-price-marquee-widget coin-ids="bitcoin,ethereum,eos,ripple,litecoin" currency="usd"
+                    background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget>
+                @yield('content')
+            </div>
+        {{-- footer  --}}
+        <x-footer-component />
+
+
+
+
+
+
+
+        <x-chat-widget-component />
+
+
+
+        @livewireScripts
+
+        <script>
+            AOS.init({
+                duration: 400, // values from 0 to 3000, with step 50ms
+                easing: 'ease', // default easing for AOS animations
+                once: false, // whether animation should happen only once - while scrolling down
+                mirror: false,
             });
         </script>
-        <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
-        <coingecko-coin-price-marquee-widget coin-ids="bitcoin,ethereum,eos,ripple,litecoin" currency="usd"
-            background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget>
-   @yield('content')
-    {{-- footer  --}}
-    <x-footer-component />
-
-
-
-
-
-
-
-    <x-chat-widget-component />
-
-
-
-    @livewireScripts
-
-    <script>
-        AOS.init({
-            duration: 400, // values from 0 to 3000, with step 50ms
-            easing: 'ease', // default easing for AOS animations
-            once: false, // whether animation should happen only once - while scrolling down
-            mirror: false,
-        });
-    </script>
 </body>
 
 </html>
-

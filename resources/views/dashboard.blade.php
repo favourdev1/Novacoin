@@ -47,21 +47,47 @@
 
         <div class="flex lg flex-col lg:flex-row items-start gap-4">
             {{-- active Iinvestments  --}}
-            <div class="w-full border rounded-xl flex-1 h-full ">
+            <div class="w-full  rounded-xl flex-1 h-full ">
                 <div class="p-4 border-b">
                     <h3 class="font-semibold ">Active Investments</h3>
                 </div>
-                <div class="p-4 min-h-96 w-full">
-                    <div class="flex justify-between items-center w-full h-full">
-                        <div class="flex items-center w-full h-full ">
-                            {{-- no active inestment --}}
-                            <div class="rounded-xl border py-2 px-4 bg-gray-100 w-max mx-auto text-center text-sm">
-                                No active investment
-
+            
+                @if (count($allMyActiveInvestment) < 1)
+                    <div class="flex items-center justify-center min-h-[70vh] ">
+                        <div class="text-center">
+                            <x-empty-svg-component :width="'p-20 py-0'"/>
+                            <div class="flex flex-col  items-center pt-6">
+                                <p class="text-blue-600 text-lg font-bold uppercase ">No active investment</p>
+                                <p class="text-gray-600">Start investing in verified opportunities. Let's help
+                                    you get started.</p>
+                                <button onclick="window.location.href='{{ route('investment.index') }}'"
+                                    class="px-4 py-2 w-max mt-4 bg-blue-600 text-white rounded-full ">Start
+                                    Investing </button>
                             </div>
+
                         </div>
                     </div>
-                </div>
+                @else
+                    <div>
+                        <div
+                            class="grid lg:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  grid-cols-1  mt-3 gap-4">
+
+                            @foreach ($allMyActiveInvestment as $investment)
+                                <x-user-invested-package investment-id="{{$investment->id }}"
+                            date="{{$investment->created_at}}"
+                                    investment-name="{{ $investment->name }}"
+                                    investment-amount="{{ $investment->amount }}"
+                                    amount="{{number_format($investment->amount)}}"
+                                    investment-status="{{ $investment->status }}"
+                                    min-investment="{{ $investment->min_amount }}"
+                                    max-investment="{{ $investment->max_amount }}"
+                                    investment-duration="{{ $investment->duration }}"
+                                    daily-interest="{{ $investment->daily_interest }}" />
+                            @endforeach
+                            
+                        </div>
+                    </div>
+                @endif
             </div>
 
 

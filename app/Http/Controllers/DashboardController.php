@@ -25,8 +25,14 @@ class DashboardController extends Controller
             ->where('user_id', $userId)
             ->where('investment_plans.status', 'active')
             ->count();
+
+            $allMyActiveInvestment = UsersInvestment::join('investment_plans', 'investment_plans.id', '=', 'users_investments.investment_plan_id')
+            ->where('user_id', $userId)
+            ->where('investment_plans.status', 'active')
+            ->orderBy('users_investments.created_at', 'desc')
+            ->get();
         $earnings = $investmentController->calcInvestmentEarningsMinute($userId);
-        return view('dashboard', compact('greetings', 'referrals','calcInvestmentEarningsToday','earnings','myActiveInvestmentCount'));
+        return view('dashboard', compact('greetings', 'referrals','calcInvestmentEarningsToday','earnings','myActiveInvestmentCount','allMyActiveInvestment'));
     }
 
     

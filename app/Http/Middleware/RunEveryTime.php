@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Mail\WalletCredited;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\InvestmentPlans;
 use App\Models\UsersInvestment;
@@ -55,8 +57,9 @@ class RunEveryTime
                     $userId = $usersInvestmentPlans->user_id;
                     User::where('id', $userId)->increment('balance', $interest);
                     User::where('id', $userId)->touch();
+                    $user = User::where('id', $userId)->first();
 
-                    // send email to the user that his wallet has been credited 
+                    Mail::to($user->email)->send(new WalletCredited($user, $interest));
                 }
                 $plan->status = "inactive";
                 $plan->save();

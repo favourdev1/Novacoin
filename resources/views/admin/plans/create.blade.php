@@ -9,7 +9,7 @@
             $headerText = $isEdit ? 'Edit Investment Plan' : 'Create Investment Plan';
         @endphp
 
-        <form class="rounded-lg border border-[#e0e0e0] w-full md:w-2/4 xl:w-1/3 text-sm text-gray-600"
+        <form class="rounded-lg border border-[#e0e0e0]  bg-white w-full md:w-2/4 xl:w-1/3 text-sm text-gray-600"
             action="{{ $formAction }}" method="POST">
             <div class="p-4 border-b">
                 <h3 class="font-bold text-xl ">{{ $headerText }}</h3>
@@ -49,13 +49,12 @@
                         class="appearance-none border border-[#e0e0e0] rounded w-full py-1.5 text-sm px-3 text-gray-700 focus:outline-none focus:ring"
                         value="{{ $isEdit ? $investmentPlan->duration : '' }}" required>
                 </div>
-
-                <div class="mb-4 text-sm">
-                    <label for="daily_interest" class="block text-gray-700 text-sm font-bold mb-2">Daily Interest (%)</label>
-                    <input type="number" name="daily_interest" id="daily_interest"
-                        class="appearance-none border border-[#e0e0e0] rounded w-full py-1.5 text-sm px-3 text-gray-700 focus:outline-none focus:ring"
-                        value="{{ $isEdit ? $investmentPlan->daily_interest : '' }}" required>
-                </div>
+<div class="mb-4 text-sm">
+    <label for="daily_interest" class="block text-gray-700 text-sm font-bold mb-2">Daily Interest (%)</label>
+    <input type="number" name="daily_interest" id="daily_interest"
+        class="appearance-none border border-[#e0e0e0] rounded w-full py-1.5 text-sm px-3 text-gray-700 focus:outline-none focus:ring"
+        value="{{ $isEdit ? $investmentPlan->daily_interest : '' }}" step="0.01" required>
+</div>
 
             </div>
 

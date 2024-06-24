@@ -1,6 +1,6 @@
 <x-sidebar>
     <div class="container mx-auto text-sm">
-        <div class="bg-white border rounded-xl sm:my-6 sm:p-6">
+        <div class="bg-white border rounded-xl sm:my-6 sm:p-6 p-2 mt-2">
             <div class="flex items-center mb-4 justify-between">
 
                 <h1 class="text-2xl font-bold ">All Plans </h1>

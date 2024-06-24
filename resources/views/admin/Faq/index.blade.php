@@ -1,9 +1,9 @@
 <x-sidebar>
     <div class="container mx-auto text-sm">
-        <div class="bg-white border rounded-xl sm:my-6 sm:p-6">
+        <div class="bg-white border rounded-xl sm:my-6 sm:p-6 p-2 mt-2">
             <div class="flex items-center mb-4 justify-between">
 
-                <h1 class="text-2xl font-bold ">All faqs </h1>
+                <h1 class="text-2xl font-bold ">All Faqs </h1>
                 <a href="{{ route('admin.setting.faq.create') }}"
                     class="bg-blue-500 text-white py-3 px-4 rounded-xl text-xs">Create faq</a>
 
@@ -36,16 +36,16 @@
                                 {{-- <td class="py-3 px-6 text-left whitespace-nowrap">{{ $faq->category }}</td> --}}
                         
 
-                                <td class="py-3 px-6 text-left">
+                                <td class="py-3 px-6 text-left whitespace-nowrap max-w-48 overflow-x-hidden">
                                    {{ $faq->question}}
                                 </td>
 
-                                <td class="py-3 px-6 text-left">
+                                <td class="py-3 px-6 text-left whitespace-nowrap max-w-48 overflow-x-hidden">
                                     {{ $faq->answer}}
                                  </td>
-                                <td class="py-3 px-6 text-left">{{ $faq->created_at }}</td>
+                                <td class="py-3 px-6 text-left whitespace-nowrap max-w-48 overflow-x-hidden">{{ $faq->created_at }}</td>
 
-                                <td class="py-3 px-6 text-left flex items-center gap-2">
+                                <td class="py-3 px-6 text-left whitespace-nowrap max-w-48 overflow-x-hidden flex items-center gap-2">
 
                                     @if ($faq->status == 'approved' || $faq->status == 'disapproved')
                                         <button type="submit" disabled

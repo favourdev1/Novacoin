@@ -47,7 +47,7 @@ Route::middleware(RunEveryTime::class)->group(function () {
 
     Route::get('/about', function () {
         return view('about');
-    });
+    })->name('about');
 
 
     // Users  authenticated routes
@@ -187,10 +187,15 @@ Route::middleware(RunEveryTime::class)->group(function () {
                     // ==========================================================
 
                     Route::get('/settings/complaints','showComplaints')->name('admin.setting.complaints');
-                    // Route::get('/settings/complaints/{id}','showComplaintsDetails')->name('admin.setting.complaints.show');
+                    Route::get('/settings/complaints/{id}','showComplaintsDetails')->name('admin.setting.complaints.show');
                     // // delete complaints
-                    // Route::delete('/settings/complaints/{id}','deleteComplaints')->name('admin.setting.complaints.destroy');
+                    Route::delete('/settings/complaints/{id}','deleteComplaints')->name('admin.setting.complaints.destroy');
 
+                    // =========================================
+                    // ========BanUser ==========================
+                    // ==========================================
+                    Route::post('/user/ban', 'banUser')->name('admin.setting.ban.user');
+                    Route::post('/user/unban', 'unbanUser')->name('admin.setting.unban.user');
 
                 });
             });

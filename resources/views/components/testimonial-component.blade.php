@@ -3,7 +3,7 @@
         {{ $review }}
     </p>
     <div class="flex items-center">
-        <img src="{{ $avatar }}" alt="User Avatar" class="w-12 h-12 rounded-full mr-4">
+        <img src="{{ $avatar }}" alt="User Avatar" class="w-10 h-10 rounded-full mr-4">
         <div>
             <h3 class="font-semibold text-xs">{{ $name }}</h3>
 

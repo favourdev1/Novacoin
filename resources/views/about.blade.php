@@ -2,6 +2,7 @@
 @section('title', "About Novacoin Holding's")
 
 @section( 'content')
+<div class="bg-[#111111] text-white pb-4">
 <main class="container mx-auto px-4 py-12 prose">
     <section class="mb-12">
         <h2 class="text-white text-2xl font-semibold mb-4">Welcome to NovaCoin Holdings</h2>
@@ -65,4 +66,5 @@
         <p class="text-base text-gray-300">Be a part of a thriving community of investors who are navigating the future of finance. Follow us on social media for the latest updates, news, and insights from the world of cryptocurrency.</p>
     </section>
 </main>
+</div>
 @endsection

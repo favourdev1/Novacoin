@@ -93,12 +93,14 @@
                         @else
                             <div>
                                 <div
-                                    class="grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4">
+                                    class="grid lg:grid-cols-3 xl:grid-cols-3 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-4">
 
                                     @foreach ($allMyActiveInvestment as $investment)
-                                        <x-active-investment-card investment-id="{{ $investment->id }}"
+                                        <x-user-invested-package investment-id="{{$investment->id }}"
+                                    date="{{$investment->created_at}}"
                                             investment-name="{{ $investment->name }}"
-                                            investment-amount="{{ $investment->min_amount }}"
+                                            investment-amount="{{ $investment->amount }}"
+                                            amount="{{number_format($investment->amount)}}"
                                             investment-status="{{ $investment->status }}"
                                             min-investment="{{ $investment->min_amount }}"
                                             max-investment="{{ $investment->max_amount }}"

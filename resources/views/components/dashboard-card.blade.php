@@ -1,7 +1,7 @@
 
 @props(['width'])
     <div class="rounded-xl border  p-4 bg-white h-100 {{ $width ?? '' }}">
-        <h5 class="text-gray-600 text-sm"> {{ $title }} <a tabindex="0" class="h6 mb-0"
+        <h5 class="text-gray-600 text-sm"> {{ $title }} <a tabindex="0" class="h6 mb-2"
                 role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top"
                 data-bs-content="{{ $info }}" data-bs-original-title=""
                 title="">
