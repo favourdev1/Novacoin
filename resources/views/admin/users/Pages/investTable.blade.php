@@ -11,9 +11,9 @@
                 <tr>
                     <th class="py-3 px-6 text-left">#</th>
                     <th class="py-3 px-6 text-left">Name</th>
-                    <th class="py-3 px-6 text-left">Min Amount</th>
+                    <th class="py-3 px-6 text-left">Amount Invested</th>
    
-                    <th class="py-3 px-6 text-left">Max Amount</th>
+                   
                     <th class="py-3 px-6 text-left">Daily Interest</th>
                     <th class="py-3 px-6 text-left">Duration</th>
                     <th class="py-3 px-6 text-left">Status</th>
@@ -31,9 +31,9 @@
                         {{$i++}}
                     </td>
                     <td class="py-3 px-6 text-left whitespace-nowrap">{{$plan->name}}</td>
-                    <td class="py-3 px-6 text-left">{{$plan->min_amount}}</td>
+                    <td class="py-3 px-6 text-left">{{$plan->amount}}</td>
      
-                    <td class="py-3 px-6 text-left">{{$plan->max_amount}}</td>
+                   
                     <td class="py-3 px-6 text-left">{{$plan->daily_interest}}</td>
                     <td class="py-3 px-6 text-left">{{$plan->duration}}</td>
                     <td class="py-3 px-6 text-left">

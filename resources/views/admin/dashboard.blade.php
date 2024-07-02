@@ -72,13 +72,13 @@
                     <div class="rounded-xl border  p-4 bg-white h-100 flex items-center">
                         <div class="flex-1">
 
-                            <h5 class="text-gray-600 text-sm"> Users Invested<a tabindex="0" class="h6 mb-0"
+                            <h5 class="text-gray-600 text-sm"> Investment Packages<a tabindex="0" class="h6 mb-0"
                                     role="button" data-bs-toggle="popover" data-bs-trigger="focus"
                                     data-bs-placement="top" data-bs-content="After US royalty withholding tax"
                                     data-bs-original-title="" title="fskdlnfklsnfs">
 
                                 </a></h5>
-                            <h2 class="fw-bold text-dark" style="font-size:2rem">{{ $investmentPlan->count() }}</h2>
+                            <h2 class="fw-bold text-dark" style="font-size:2rem">{{ $allInvestmentPlans->count() }}</h2>
                             <p class="mb-2 text-muted small">
                         </div>
 
@@ -224,13 +224,13 @@
 
 
             {{-- side section --}}
-            <div class="border rounded-xl w-1/5 p-3 flex justify-center flex-col gap-2">
-                <p class="font-bold text-lg">Refer and earn</p>
+            <div class="borders rounded-xl w-1/5 p-3 flex justify-center flex-col gap-2">
+                {{-- <p class="font-bold text-lg">Refer and earn</p>
                 <p class="text-sm text-gray-500">Use the link below to invite your friends </p>
                 <div class="border rounded-xl px-4 py-2  flex items-center gap-3 bg-gray-50 text-sm">
                     <p class=" whitespace-nowrap flex-1 overflow-hidden text-gray-700">
                         https://app.convests.com/register/zoxilygydu
-                    </p>
+                    </p> --}}
                     {{-- copy icon --}}
                     {{-- <div class="col hover:bg-gray-300 group-hover:bg-gray-800 duration-400 p-2 rounded-xl">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

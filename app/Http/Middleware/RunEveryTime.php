@@ -50,7 +50,7 @@ class RunEveryTime
                     $rate = $usersInvestmentPlans->daily_interest;
                     $time = $usersInvestmentPlans->duration;
 
-                    $interest = ($principal * $rate * $time) / 100;
+                    $interest = ($principal * $rate * $time) ;
 
 
 

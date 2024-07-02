@@ -31,7 +31,7 @@
     
                 {{-- percentage income --}}
                 <div class=" bg-gray-50 rounded-xl min-h-max border border-[#eee] p-4">
-                    <p class="text-lg font-bold py-0 my-0 whitespace-nowrap">{{intval($userInvestment->daily_interest)}} %</p>
+                    <p class="text-lg font-bold py-0 my-0 whitespace-nowrap">{{$userInvestment->daily_interest}} %</p>
                     <p class="text-xs py-0 my-0 whitespace-nowrap">Daily Interest</p>
                 </div>
                 <div class=" bg-gray-50 rounded-xl min-h-max border border-[#eee] p-4">

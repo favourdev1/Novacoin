@@ -108,7 +108,12 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <form action="{{ route('admin.makeAdmin') }}" method="POST" style="display: none;" id="makeAdminForm">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{  $user->id }}">
+                            </form>
+                            
+                            <x-dropdown-link href="#" onclick="event.preventDefault(); document.getElementById('makeAdminForm').submit();">
                                 Make User Admin
                             </x-dropdown-link>
                         </x-slot>
@@ -154,7 +159,7 @@
                                 <!-- Content for Tab 1 -->
                                 <div x-show="tab === 'tab1'" class="tab-content active">
                                     <div class="lg:w-1/3 py-4">
-                                        <x-dashboard-card title="Today's Earnings"
+                                        <x-dashboard-card title="Balance"
                                             info="After US royalty withholding tax" amount="${{ $user->balance }}" />
                                     </div>
 
@@ -164,7 +169,7 @@
                                 <!-- Content for Tab 2 -->
                                 <div x-show="tab === 'tab2'" class="tab-content">
                                     <div class="lg:w-1/3 py-4">
-                                        <x-dashboard-card title="Today's Earnings"
+                                        <x-dashboard-card title="Balance"
                                             info="After US royalty withholding tax" amount="{{ $user->balance }}" />
                                     </div>
                                     @include('admin.users.Pages.fundTable')
@@ -173,7 +178,7 @@
                                 <!-- Content for Tab 3 -->
                                 <div x-show="tab === 'tab3'" class="tab-content">
                                     <div class="lg:w-1/3 py-4">
-                                        <x-dashboard-card title="Today's Earnings"
+                                        <x-dashboard-card title="Balance"
                                             info="After US royalty withholding tax" amount="{{ $user->balance }}" />
                                     </div>
                                     @include('admin.users.Pages.withdrawTable')

@@ -324,16 +324,20 @@ class InvestmentController extends Controller
     {
         $earnings = 0;
         $investmentPlans = UsersInvestment::join('investment_plans', 'investment_plans.id', '=', 'users_investments.investment_plan_id')
-            ->where('user_id', $userId)
-            ->where('status', 'active')->get();
+            ->where('users_investments.user_id', $userId)
+            ->where('investment_plans.status', 'active')
+            ->select('users_investments.*', 'investment_plans.*', 'investment_plans.created_at as plan_created_at', 'users_investments.created_at as user_investment_created_at')
+            ->get();
         foreach ($investmentPlans as $plan) {
             $now = Carbon::now();
             $startOfDay = clone $now;
             $startOfDay->startOfDay();
+            // Convert plan_created_at to a Carbon instance
+            $planCreatedAt = Carbon::parse($plan->plan_created_at);
 
             // Check if the investment was made today
-            if ($plan->created_at->isToday()) {
-                $startOfDay = $plan->created_at;
+            if ($planCreatedAt->isToday()) {
+                $startOfDay = $planCreatedAt;
             }
 
             $minutesPassedToday = abs($now->diffInMinutes($startOfDay));

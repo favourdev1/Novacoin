@@ -160,6 +160,8 @@ class AdminController extends Controller
             ->select('users_investments.*', 'investment_plans.*', 'users_investments.created_at as investment_date')
             ->get();
 
+            $allInvestmentPlans = InvestmentPlans::all();
+
         // all funding request
         $fundRequest = FundAccount::join('wallets', 'fund_accounts.wallet_id', '=', 'wallets.id')->get();
         $funds = 0;
@@ -176,7 +178,7 @@ class AdminController extends Controller
             ->select('fund_accounts.*', 'users.*', 'wallets.*', 'fund_accounts.id as fund_accountId')
             ->paginate(10);
 
-        return view('admin.dashboard', compact('greetings', 'users', 'investmentPlan', 'fundRequest', 'funds', 'AllFundings'));
+        return view('admin.dashboard', compact('greetings', 'users', 'investmentPlan', 'fundRequest', 'funds', 'AllFundings','allInvestmentPlans'));
     }
 
     public function createInvestmentPlan(Request $request)

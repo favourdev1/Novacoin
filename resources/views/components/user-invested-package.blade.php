@@ -91,7 +91,7 @@
 
             {{-- percentage income --}}
             <div class=" bg-[#DFF2F0] rounded-xl min-h-max border border-[#eee] p-4">
-                <p class="text-lg text-green-700 font-bold py-0 my-0 whitespace-nowrap">${{ number_format($dailyInterest) }}% </p>
+                <p class="text-lg text-green-700 font-bold py-0 my-0 whitespace-nowrap">{{$dailyInterest }}% </p>
                 <p class="text-xs py-0 my-0 whitespace-nowrap text-green-500">Returns</p>
             </div>
         </div>
