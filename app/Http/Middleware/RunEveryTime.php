@@ -27,7 +27,7 @@ class RunEveryTime
 
         foreach ($investmentPlans as $plan) {
             $planStartDate = Carbon::parse($plan->created_at);
-            $planEndDate = $planStartDate->copy()->addDays($plan->duration);
+            $planEndDate = $planStartDate->copy()->addDays((int)$plan->duration);
 
             if (Carbon::now()->greaterThan($planEndDate)) {
 
