@@ -1,0 +1,18 @@
+deployment:
+  tasks:
+    # Go to the correct folder
+    - export DEPLOYPATH=/home/novamdrw/public_html/Novacoin
+
+    # Pull the latest code
+    - /usr/local/cpanel/3rdparty/bin/git pull origin main
+
+    # Install Composer dependencies (production mode)
+    - /opt/cpanel/composer/bin/composer install --no-dev --optimize-autoloader
+
+    # Clear caches and optimize
+    - php artisan migrate --force
+    - php artisan config:clear
+    - php artisan route:clear
+    - php artisan view:clear
+    - php artisan cache:clear
+    - php artisan optimize
