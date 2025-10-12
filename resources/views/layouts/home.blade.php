@@ -14,7 +14,9 @@
     <!-- Scripts -->
     <script src="{{ asset('assets/aos/dist/aos.js') }}"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
+        @vite(['public/build/assets/app-xHOLD8eO.css', 'public/build/assets/app-C1-XIpUa.js '])
+
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     @livewireStyles
 
