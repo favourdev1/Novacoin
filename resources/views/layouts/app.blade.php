@@ -12,8 +12,17 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+        <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
+@php
+    $cwd = getcwd();
+    $cssName = basename(glob($cwd . '/build/assets/*.css')[0] ?? '', '.css');
+    $jsName = basename(glob($cwd . '/build/assets/*.js')[0] ?? '', '.js');
+    $css = asset('build/assets/' . $cssName . '.css');
+    $js = asset('build/assets/' . $jsName . '.js');
+    @endphp
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{ $css }}" id="css">
+    <script src="{{ $js }}" id="js"></script>
         <!-- Styles -->
         @livewireStyles
     </head>

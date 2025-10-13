@@ -14,7 +14,17 @@
     <!-- Scripts -->
     <script src="{{ asset('assets/aos/dist/aos.js') }}"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @php
+    $cwd = getcwd();
+    $cssName = basename(glob($cwd . '/build/assets/*.css')[0] ?? '', '.css');
+    $jsName = basename(glob($cwd . '/build/assets/*.js')[0] ?? '', '.js');
+    $css = asset('build/assets/' . $cssName . '.css');
+    $js = asset('build/assets/' . $jsName . '.js');
+    @endphp
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{ $css }}" id="css">
+    <script src="{{ $js }}" id="js"></script>
+    
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     @livewireStyles
 
