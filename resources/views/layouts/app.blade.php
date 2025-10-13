@@ -13,7 +13,7 @@
 
         <!-- Scripts -->
         <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-@php
+    @php
     $cwd = getcwd();
     $cssName = basename(glob($cwd . '/build/assets/*.css')[0] ?? '', '.css');
     $jsName = basename(glob($cwd . '/build/assets/*.js')[0] ?? '', '.js');
